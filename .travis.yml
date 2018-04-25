@@ -15,8 +15,8 @@ before_script:
   - npm install codecov -g
 
 script:
-  - ng build --prod --aot
-  - ng test
+  - npm build
+  - npm test
 
 after_success:
   - codecov
