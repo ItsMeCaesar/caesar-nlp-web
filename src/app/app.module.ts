@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpModule } from '@angular/http';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -9,7 +10,7 @@ import { AppRoutingModule } from './app.routing';
 import { HomeComponent } from './home';
 import { DomainComponent } from './domain';
 import { EntityComponent } from './entity';
-import { EntityTypeComponent } from './entity/entitytype';
+import { EntityTypeComponent, EntityTypeService } from './entity/entitytype';
 
 @NgModule({
   declarations: [
@@ -22,9 +23,12 @@ import { EntityTypeComponent } from './entity/entitytype';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpModule,
     NgbModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    EntityTypeService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
