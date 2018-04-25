@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 
 import { HomeComponent } from './home';
-import { DomainComponent } from './domain';
+import { DomainComponent, DomainService } from './domain';
 import { EntityComponent } from './entity';
 import { EntityTypeComponent, EntityTypeService } from './entity/entitytype';
 

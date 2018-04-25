@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { EntityType, Response } from '../../models';
-import { environment } from '../../../environments/environment';
+import { Domain, Response } from '../models';
+import { environment } from '../../environments/environment';
 
 @Injectable()
-export class EntityTypeService {
+export class DomainService {
 
     /**
      * Constructor
@@ -17,13 +17,13 @@ export class EntityTypeService {
     ) { }
 
     /**
-     * Retrieve the entity types
+     * Retrieve the domains
      *
      * @param callback
      */
     get(callback: Function) {
 
-        return this.http.get<Array<EntityType>>(`${environment}/entitytype`)
+        return this.http.get<Array<Domain>>(`${environment}/domain`)
             .subscribe(data => {
                 const out = new Response(true);
                 out.list = data;
