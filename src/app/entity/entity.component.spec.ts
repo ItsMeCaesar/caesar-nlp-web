@@ -1,13 +1,24 @@
 import { TestBed, async } from '@angular/core/testing';
+
+import { HttpModule } from '@angular/http';
+
 import { EntityComponent } from './entity.component';
+import { EntityTypeComponent, EntityTypeService } from './entitytype';
 
 describe('EntityComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [
-                EntityComponent
+            imports: [
+                HttpModule
             ],
+            declarations: [
+                EntityComponent,
+                EntityTypeComponent
+            ],
+            providers: [
+                EntityTypeService
+            ]
         }).compileComponents();
     }));
 
