@@ -9,13 +9,15 @@ import { AppRoutingModule } from './app.routing';
 import { HomeComponent } from './home';
 import { DomainComponent } from './domain';
 import { EntityComponent } from './entity';
+import { EntityTypeComponent } from './entity/entitytype';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     DomainComponent,
-    EntityComponent
+    EntityComponent,
+    EntityTypeComponent
   ],
   imports: [
     BrowserModule,

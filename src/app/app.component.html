@@ -17,6 +17,9 @@
         <a class="nav-link" [routerLink]="['/entity']" href="#">Entities</a>
       </li>
     </ul>
+    <div *ngIf="loading" class="my-2 my-lg-0">
+        <img alt="Loading" src="../assets/img/loading.gif">
+    </div>
   </div>
 </nav>
 

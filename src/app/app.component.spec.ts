@@ -22,4 +22,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   }));
 
+  it(`should have hidden the loading cursor`, async(() => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.debugElement.componentInstance;
+    expect(app.loading).toBeFalsy();
+  }));
+
 });
