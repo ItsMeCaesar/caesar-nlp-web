@@ -12,7 +12,11 @@ branches:
 
 before_script:
   - npm install -g @angular/cli
+  - npm install codecov -g
 
 script:
   - ng build --prod --aot
   - ng test
+
+after_success:
+  - codecov
