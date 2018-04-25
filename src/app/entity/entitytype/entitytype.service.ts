@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
 import { EntityType, Response } from '../../models';
-
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class EntityTypeService {
@@ -13,7 +13,7 @@ export class EntityTypeService {
      * @param http
      */
     constructor(
-        private http: Http
+        private http: HttpClient
     ) { }
 
     /**
@@ -23,20 +23,14 @@ export class EntityTypeService {
      */
     get(callback: Function) {
 
-        return this.http.get('http://localhost:8080/caesar-nlp/entitytype')
+        return this.http.get<Array<EntityType>>(`${environment}/entitytype`)
             .subscribe(data => {
-                const json = data.json();
-
-                const list = new Array<EntityType>();
                 const out = new Response(true);
-
-                json.forEach(vo => list.push(new EntityType(vo.id, vo.name)));
-
-                out.list = list;
+                out.list = data;
                 callback(out);
             }, error => {
                 const out = new Response(false);
-                out.msg = error.json() && error.json().msg;
+                out.msg = error.msg;
                 callback(out);
             });
     }

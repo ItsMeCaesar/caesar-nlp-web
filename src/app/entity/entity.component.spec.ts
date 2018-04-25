@@ -1,6 +1,6 @@
 import { TestBed, async } from '@angular/core/testing';
 
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { EntityComponent } from './entity.component';
 import { EntityTypeComponent, EntityTypeService } from './entitytype';
@@ -10,7 +10,7 @@ describe('EntityComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
-                HttpModule
+                HttpClientModule
             ],
             declarations: [
                 EntityComponent,

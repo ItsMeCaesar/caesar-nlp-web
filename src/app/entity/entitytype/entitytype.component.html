@@ -1,12 +1,8 @@
 <div>
   <h5>Entities Types</h5>
   <div class="list-group">
-    <button type="button" class="list-group-item list-group-item-action">
-      Cras justo odio
+    <button type="button" class="list-group-item list-group-item-action" *ngFor="let et of list">
+      {{et.name}}
     </button>
-    <button type="button" class="list-group-item list-group-item-action">Dapibus ac </button>
-    <button type="button" class="list-group-item list-group-item-action">Morbi leo </button>
-    <button type="button" class="list-group-item list-group-item-action">Porta ac </button>
-    <button type="button" class="list-group-item list-group-item-action" disabled>Vestibulum a</button>
   </div>
 </div>

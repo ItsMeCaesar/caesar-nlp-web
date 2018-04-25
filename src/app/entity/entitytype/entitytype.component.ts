@@ -11,7 +11,7 @@ import { EntityType, Response } from '../../models';
 })
 export class EntityTypeComponent implements OnInit {
 
-    private list = new Array<EntityType>();
+    public list = new Array<EntityType>();
 
     /**
      * Constructor
