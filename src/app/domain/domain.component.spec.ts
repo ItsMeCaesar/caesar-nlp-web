@@ -23,6 +23,7 @@ describe('DomainComponent', () => {
         const compiled = fixture.debugElement.nativeElement;
         expect(compiled.querySelector('h2').textContent).toContain('Domains');
     }));
+
     it('should render subtitle in a h6 tag', async(() => {
         const fixture = TestBed.createComponent(DomainComponent);
         fixture.detectChanges();

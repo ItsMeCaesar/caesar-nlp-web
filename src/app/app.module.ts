@@ -9,7 +9,7 @@ import { AppRoutingModule } from './app.routing';
 
 import { HomeComponent } from './home';
 import { DomainComponent, DomainService } from './domain';
-import { EntityComponent } from './entity';
+import { EntityComponent, EntityService } from './entity';
 import { EntityTypeComponent, EntityTypeService } from './entity/entitytype';
 
 @NgModule({
@@ -27,6 +27,8 @@ import { EntityTypeComponent, EntityTypeService } from './entity/entitytype';
     NgbModule.forRoot()
   ],
   providers: [
+    DomainService,
+    EntityService,
     EntityTypeService
   ],
   bootstrap: [AppComponent]
