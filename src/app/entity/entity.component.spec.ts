@@ -60,7 +60,6 @@ describe('EntityComponent', () => {
         component.ngOnInit();
 
         const req = httpMock.expectOne(`${environment}/entity`, 'call to api');
-        expect(req.request.method).toBe('GET');
         req.flush([{
             id: '1',
             value: 'michel temer',
@@ -74,6 +73,7 @@ describe('EntityComponent', () => {
         }]);
         httpMock.verify();
 
+        expect(req.request.method).toBe('GET');
         expect(component.list.length).toBe(2);
 
         expect(component.list[0].locale).toBe('pt_BR');

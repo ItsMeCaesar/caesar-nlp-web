@@ -52,7 +52,6 @@ describe('EntityTypeComponent', () => {
         component.ngOnInit();
 
         const req = httpMock.expectOne(`${environment}/entitytype`, 'call to api');
-        expect(req.request.method).toBe('GET');
         req.flush([{
             id: '1',
             name: 'date'
@@ -65,6 +64,7 @@ describe('EntityTypeComponent', () => {
         }]);
         httpMock.verify();
 
+        expect(req.request.method).toBe('GET');
         expect(component.list.length).toBe(3);
         expect(component.list[0].name).toBe('date');
         expect(component.list[1].name).toBe('person');
