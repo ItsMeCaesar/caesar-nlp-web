@@ -23,7 +23,7 @@ export class DomainService {
      */
     get(callback: Function) {
 
-        return this.http.get<Array<Domain>>(`${environment}/domain`)
+        return this.http.get<Array<Domain>>(`${environment.apihost}/domain`)
             .subscribe(data => {
                 const out = new Response(true);
                 out.list = data;

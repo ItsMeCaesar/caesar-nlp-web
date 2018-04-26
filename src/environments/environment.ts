@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  apihost: 'http://localhost:8080/caesar-nlp'
+  apihost: 'http://localhost:8888/caesar-nlp'
 };
