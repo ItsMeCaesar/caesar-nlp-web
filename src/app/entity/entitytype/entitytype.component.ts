@@ -12,6 +12,7 @@ import { EntityType, Response } from '../../models';
 export class EntityTypeComponent implements OnInit {
 
     public list = new Array<EntityType>();
+    public value = '';
 
     /**
      * Constructor
@@ -33,6 +34,22 @@ export class EntityTypeComponent implements OnInit {
 
             }
         });
+    }
+
+    /**
+     * Adds a new entity type
+     */
+    add() {
+        if (this.value.length > 2) {
+            this.service.post(this.value, (response: Response) => {
+                if (response.ok) {
+                    this.list.push(response.obj);
+                    this.value = '';
+                } else {
+
+                }
+            });
+        }
     }
 
 }

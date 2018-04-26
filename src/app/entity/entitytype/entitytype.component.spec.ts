@@ -1,5 +1,6 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MockBackend, MockConnection } from '@angular/http/testing';
 
@@ -20,7 +21,8 @@ describe('EntityTypeComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
-                HttpClientTestingModule
+                HttpClientTestingModule,
+                FormsModule
             ],
             declarations: [
                 EntityTypeComponent
@@ -51,7 +53,7 @@ describe('EntityTypeComponent', () => {
 
         component.ngOnInit();
 
-        const req = httpMock.expectOne(`${environment}/entitytype`, 'call to api');
+        const req = httpMock.expectOne(`${environment.apihost}/entitytype`, 'call to api');
         req.flush([{
             id: '1',
             name: 'date'

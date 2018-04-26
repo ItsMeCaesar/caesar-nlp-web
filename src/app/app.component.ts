@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { AppService } from './app.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,6 +11,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 })
 export class AppComponent {
 
-  loading = false;
+   /**
+     * Constructor
+     *
+     * @param service
+     */
+    constructor(
+      public service: AppService
+  ) { }
 
 }

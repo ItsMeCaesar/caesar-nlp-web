@@ -3,6 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
+import { AppService } from './app.service';
 
 describe('AppComponent', () => {
 
@@ -18,6 +19,9 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent
       ],
+      providers: [
+        AppService
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(AppComponent);
@@ -29,7 +33,7 @@ describe('AppComponent', () => {
   }));
 
   it(`should have hidden the loading cursor`, async(() => {
-    expect(component.loading).toBeFalsy();
+    expect(component.service.loading).toBeFalsy();
   }));
 
 });

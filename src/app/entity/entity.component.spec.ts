@@ -1,6 +1,7 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { EntityComponent } from './entity.component';
 import { EntityService } from './entity.service';
@@ -19,7 +20,8 @@ describe('EntityComponent', () => {
         TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
-                HttpClientModule
+                HttpClientModule,
+                FormsModule
             ],
             declarations: [
                 EntityComponent,

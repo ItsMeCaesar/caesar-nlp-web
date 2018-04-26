@@ -2,6 +2,7 @@ export class Response {
 
     ok: boolean;
     msg: string;
+    obj: any;
     list: Array<any>;
 
     /**
@@ -20,7 +21,8 @@ export class Response {
     toString(): string {
         return '{ \n'
             + '\"ok\": \"' + this.ok + '\",\n'
-            + '\"msg\": \"' + this.msg + '\"\n'
+            + '\"msg\": \"' + this.msg + '\",\n'
+            + '\"obj\": \"' + this.obj + '\",\n'
             + '\"list\": \"' + this.list + '\"\n'
             + '}';
     }
