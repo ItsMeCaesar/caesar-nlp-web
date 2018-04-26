@@ -23,4 +23,6 @@
   </div>
 </nav>
 
+<ngb-alert *ngIf="service.alert.show" [type]="service.alert.type">{{service.alert.msg}}</ngb-alert>
+
 <router-outlet></router-outlet>

@@ -1,3 +1,4 @@
+export * from './alert';
 export * from './domain';
 export * from './entity';
 export * from './entitytype';
