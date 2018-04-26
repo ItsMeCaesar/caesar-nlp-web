@@ -24,7 +24,7 @@ describe('AppComponent', () => {
     component = fixture.debugElement.componentInstance;
   }));
 
-  it('should create the app', async(() => {
+  it('should create the component', async(() => {
     expect(component).toBeTruthy();
   }));
 
