@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { EntityTypeService } from './entitytype.service';
 import { AppService } from '../../app.service';
@@ -10,7 +10,7 @@ import { EntityType, Response } from '../../models';
     templateUrl: './entitytype.component.html',
     styleUrls: ['./entitytype.component.css']
 })
-export class EntityTypeComponent implements AfterViewInit {
+export class EntityTypeComponent implements OnInit {
 
     public list = new Array<EntityType>();
     public value = '';
@@ -29,16 +29,8 @@ export class EntityTypeComponent implements AfterViewInit {
     /**
      * Initialize
      */
-    ngAfterViewInit() {
-        this.app.loading = true;
-        this.service.get((response: Response) => {
-            this.app.loading = false;
-            if (response.ok) {
-                this.list = response.list;
-            } else {
-
-            }
-        });
+    ngOnInit() {
+        this.load();
     }
 
     /**
@@ -47,7 +39,7 @@ export class EntityTypeComponent implements AfterViewInit {
     add() {
         if (this.value.length > 2) {
             this.app.loading = true;
-            this.service.post(this.value, (response: Response) => {
+            this.service.add(this.value, (response: Response) => {
                 this.app.loading = false;
                 if (response.ok) {
                     this.list.push(response.obj);
@@ -57,6 +49,37 @@ export class EntityTypeComponent implements AfterViewInit {
                 }
             });
         }
+    }
+
+    /**
+     * Delete an entity type
+     *
+     * @param et
+     */
+    delete(et: EntityType) {
+        this.app.loading = true;
+        this.service.delete(et, (response: Response) => {
+            if (response.ok) {
+                this.load();
+            } else {
+                this.app.loading = false;
+            }
+        });
+    }
+
+    /**
+     * Load the entity types
+     */
+    load() {
+        this.service.get((response: Response) => {
+            if (response.ok) {
+                this.app.loading = false;
+                this.list = response.list;
+                console.log(this.list);
+            } else {
+
+            }
+        });
     }
 
 }

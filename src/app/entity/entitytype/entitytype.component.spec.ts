@@ -53,7 +53,7 @@ describe('EntityTypeComponent', () => {
 
     it('should retrieve the initial types', async(() => {
 
-        component.ngAfterViewInit();
+        component.ngOnInit();
 
         const req = httpMock.expectOne(`${environment.apihost}/entitytype`, 'call to api');
         req.flush([{

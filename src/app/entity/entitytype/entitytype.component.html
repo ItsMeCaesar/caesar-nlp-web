@@ -8,9 +8,14 @@
     </button>
   </div>
 
-  <div class="list-group mt-3">
-    <button type="button" class="list-group-item list-group-item-action" *ngFor="let et of list">
-      {{et.name}}
-    </button>
-  </div>
+  <ul class="list-group mt-3">
+    <li class="list-group-item" *ngFor="let et of list">
+      <div class="d-flex justify-content-between align-items-center">
+        {{et.name}}
+        <button type="button" class="close" aria-label="Close" (click)="delete(et)">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </li>
+  </ul>
 </div>
