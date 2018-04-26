@@ -1,4 +1,4 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { MockBackend, MockConnection } from '@angular/http/testing';
@@ -14,6 +14,8 @@ describe('EntityTypeComponent', () => {
 
     let service: EntityTypeService;
     let httpMock: HttpTestingController;
+    let fixture: ComponentFixture<EntityTypeComponent>;
+    let component: EntityTypeComponent;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -30,16 +32,16 @@ describe('EntityTypeComponent', () => {
 
         service = TestBed.get(EntityTypeService);
         httpMock = TestBed.get(HttpTestingController);
+        fixture = TestBed.createComponent(EntityTypeComponent);
+        component = fixture.debugElement.componentInstance;
     }));
 
     it('should create the entity type', async(() => {
-        const fixture = TestBed.createComponent(EntityTypeComponent);
-        const component = fixture.debugElement.componentInstance;
         expect(component).toBeTruthy();
     }));
 
     it('should render title in a h5 tag', async(() => {
-        const fixture = TestBed.createComponent(EntityTypeComponent);
+
         fixture.detectChanges();
         const compiled = fixture.debugElement.nativeElement;
         expect(compiled.querySelector('h5').textContent).toContain('Entities Types');
@@ -47,18 +49,7 @@ describe('EntityTypeComponent', () => {
 
     it('should retrieve the initial types', async(() => {
 
-        service.get((response: Response) => {
-
-            expect(response.ok).toBeTruthy();
-
-            const list: Array<EntityType> = response.list;
-
-            expect(list.length).toBe(3);
-            expect(list[0].name).toBe('date');
-            expect(list[1].name).toBe('person');
-            expect(list[2].name).toBe('time');
-
-        });
+        component.ngOnInit();
 
         const req = httpMock.expectOne(`${environment}/entitytype`, 'call to api');
         expect(req.request.method).toBe('GET');
@@ -72,26 +63,14 @@ describe('EntityTypeComponent', () => {
             id: '3',
             name: 'time'
         }]);
-
         httpMock.verify();
 
+
+        expect(component.list.length).toBe(3);
+        expect(component.list[0].name).toBe('date');
+        expect(component.list[1].name).toBe('person');
+        expect(component.list[2].name).toBe('time');
+
     }));
 
-    it('should display values on the UI', async(() => {
-
-        const fixture = TestBed.createComponent(EntityTypeComponent);
-        const compiled = fixture.debugElement.nativeElement;
-        const component = fixture.debugElement.componentInstance;
-
-        component.list = [
-            new EntityType('1', 'date'),
-            new EntityType('2', 'person'),
-            new EntityType('3', 'time'),
-        ];
-
-        fixture.detectChanges();
-
-        const buttons = compiled.querySelectorAll('.list-group-item');
-        expect(buttons.length).toBe(3);
-    }));
 });
