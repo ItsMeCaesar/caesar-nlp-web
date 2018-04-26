@@ -59,7 +59,7 @@ describe('DomainComponent', () => {
 
         component.ngOnInit();
 
-        const req = httpMock.expectOne(`${environment}/domain`, 'call to api');
+        const req = httpMock.expectOne(`${environment.apihost}/domain/list`, 'call to api');
         req.flush([
             {
                 id: '',
