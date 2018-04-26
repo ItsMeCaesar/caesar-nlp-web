@@ -65,11 +65,15 @@ describe('EntityTypeComponent', () => {
         }]);
         httpMock.verify();
 
-
         expect(component.list.length).toBe(3);
         expect(component.list[0].name).toBe('date');
         expect(component.list[1].name).toBe('person');
         expect(component.list[2].name).toBe('time');
+
+        fixture.detectChanges();
+        const compiled = fixture.debugElement.nativeElement;
+        const buttons = compiled.querySelectorAll('.list-group-item');
+        expect(buttons.length).toBe(3);
 
     }));
 
