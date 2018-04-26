@@ -23,7 +23,7 @@ export class EntityService {
      */
     get(callback: Function) {
 
-        return this.http.get<Array<Entity>>(`${environment}/entity`)
+        return this.http.get<Array<Entity>>(`${environment.apihost}/entity/list`)
             .subscribe(data => {
                 const out = new Response(true);
                 out.list = data;

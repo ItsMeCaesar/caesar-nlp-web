@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 
 import { EntityService } from './entity.service';
 
@@ -8,7 +8,7 @@ import { Entity, Response } from '../models';
   templateUrl: './entity.component.html',
   styleUrls: ['./entity.component.css']
 })
-export class EntityComponent implements OnInit {
+export class EntityComponent implements AfterViewInit {
 
   public list = new Array<Entity>();
 
@@ -24,7 +24,7 @@ export class EntityComponent implements OnInit {
     /**
      * Initialize
      */
-    ngOnInit() {
+    ngAfterViewInit() {
         this.service.get((response: Response) => {
             if (response.ok) {
                 this.list = response.list;

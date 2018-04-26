@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EntityComponent } from './entity.component';
 import { EntityService } from './entity.service';
 import { EntityTypeComponent, EntityTypeService } from './entitytype';
+import { AppService } from '../app.service';
 
 import { environment } from '../../environments/environment';
 
@@ -28,6 +29,7 @@ describe('EntityComponent', () => {
                 EntityTypeComponent
             ],
             providers: [
+                AppService,
                 EntityTypeService,
                 EntityService
             ]
@@ -59,9 +61,9 @@ describe('EntityComponent', () => {
 
     it('should retrieve the initial entities', async(() => {
 
-        component.ngOnInit();
+        component.ngAfterViewInit();
 
-        const req = httpMock.expectOne(`${environment}/entity`, 'call to api');
+        const req = httpMock.expectOne(`${environment.apihost}/entity/list`, 'call to api');
         req.flush([{
             id: '1',
             value: 'michel temer',
