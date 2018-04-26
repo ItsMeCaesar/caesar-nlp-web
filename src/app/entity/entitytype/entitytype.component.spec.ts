@@ -6,6 +6,7 @@ import { MockBackend, MockConnection } from '@angular/http/testing';
 
 import { EntityTypeComponent } from './entitytype.component';
 import { EntityTypeService } from './entitytype.service';
+import { AppService } from '../../app.service';
 
 import { Response, EntityType } from '../../models';
 
@@ -28,6 +29,7 @@ describe('EntityTypeComponent', () => {
                 EntityTypeComponent
             ],
             providers: [
+                AppService,
                 EntityTypeService
             ]
         }).compileComponents();
@@ -51,7 +53,7 @@ describe('EntityTypeComponent', () => {
 
     it('should retrieve the initial types', async(() => {
 
-        component.ngOnInit();
+        component.ngAfterViewInit();
 
         const req = httpMock.expectOne(`${environment.apihost}/entitytype`, 'call to api');
         req.flush([{

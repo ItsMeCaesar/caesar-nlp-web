@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 
 import { EntityTypeService } from './entitytype.service';
+import { AppService } from '../../app.service';
 
 import { EntityType, Response } from '../../models';
 
@@ -9,7 +10,7 @@ import { EntityType, Response } from '../../models';
     templateUrl: './entitytype.component.html',
     styleUrls: ['./entitytype.component.css']
 })
-export class EntityTypeComponent implements OnInit {
+export class EntityTypeComponent implements AfterViewInit {
 
     public list = new Array<EntityType>();
     public value = '';
@@ -18,16 +19,20 @@ export class EntityTypeComponent implements OnInit {
      * Constructor
      *
      * @param service
+     * @param app
      */
     constructor(
-        private service: EntityTypeService
+        private service: EntityTypeService,
+        private app: AppService
     ) { }
 
     /**
      * Initialize
      */
-    ngOnInit() {
+    ngAfterViewInit() {
+        this.app.loading = true;
         this.service.get((response: Response) => {
+            this.app.loading = false;
             if (response.ok) {
                 this.list = response.list;
             } else {
@@ -41,7 +46,9 @@ export class EntityTypeComponent implements OnInit {
      */
     add() {
         if (this.value.length > 2) {
+            this.app.loading = true;
             this.service.post(this.value, (response: Response) => {
+                this.app.loading = false;
                 if (response.ok) {
                     this.list.push(response.obj);
                     this.value = '';

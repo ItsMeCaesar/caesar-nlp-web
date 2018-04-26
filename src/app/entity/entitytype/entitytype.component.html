@@ -1,15 +1,14 @@
 <div>
   <h5>Entities Types</h5>
 
-  <div class="d-flex align-items-center">
+  <div class="d-flex">
     <input type="text" class="form-control" id="input_entitytype" placeholder="Enter name" [(ngModel)]="value">
-
     <button type="button" class="btn btn-outline-primary ml-2" (click)="add()">
       Add
     </button>
   </div>
 
-  <div class="list-group">
+  <div class="list-group mt-3">
     <button type="button" class="list-group-item list-group-item-action" *ngFor="let et of list">
       {{et.name}}
     </button>
