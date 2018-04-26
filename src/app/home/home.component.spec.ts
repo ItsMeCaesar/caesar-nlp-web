@@ -1,7 +1,10 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { HomeComponent } from './home.component';
 
 describe('HomeComponent', () => {
+
+    let fixture: ComponentFixture<HomeComponent>;
+    let component: HomeComponent;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -9,22 +12,20 @@ describe('HomeComponent', () => {
                 HomeComponent
             ],
         }).compileComponents();
+
+        fixture = TestBed.createComponent(HomeComponent);
+        component = fixture.debugElement.componentInstance;
     }));
 
-    it('should create the home', async(() => {
-        const fixture = TestBed.createComponent(HomeComponent);
-        const home = fixture.debugElement.componentInstance;
-        expect(home).toBeTruthy();
+    it('should create the component', async(() => {
+        expect(component).toBeTruthy();
     }));
 
     it(`should have as title 'Caesar NLP'`, async(() => {
-        const fixture = TestBed.createComponent(HomeComponent);
-        const home = fixture.debugElement.componentInstance;
-        expect(home.title).toEqual('Caesar NLP');
+        expect(component.title).toEqual('Caesar NLP');
     }));
 
     it('should render title in a h1 tag', async(() => {
-        const fixture = TestBed.createComponent(HomeComponent);
         fixture.detectChanges();
         const compiled = fixture.debugElement.nativeElement;
         expect(compiled.querySelector('h1').textContent).toContain('Welcome to Caesar NLP!');
