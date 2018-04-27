@@ -5,7 +5,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { EntityService } from './entity.service';
 import { EntityTypeService } from './entitytype';
 
-import { Entity, Response } from '../models';
+import { Entity, Locale, Response } from '../models';
 
 @Component({
     templateUrl: './entity.component.html',
@@ -14,7 +14,14 @@ import { Entity, Response } from '../models';
 export class EntityComponent implements OnInit {
 
     public list = new Array<Entity>();
-    model = 1;
+    private locales = [
+        new Locale('pt_BR', 'Português (BR)'),
+        new Locale('en_US', 'English (US)')
+    ];
+    private filter = {
+        type: '',
+        locale: 'pt_BR'
+    };
 
     /**
      * Constructor
@@ -34,7 +41,10 @@ export class EntityComponent implements OnInit {
      */
     ngOnInit() {
         this.typeService.get((response: Response) => {
-            if (!response.ok) {
+            if (response.ok) {
+                this.filter.type = this.typeService.list[0].name;
+            } else {
+
             }
         });
 
