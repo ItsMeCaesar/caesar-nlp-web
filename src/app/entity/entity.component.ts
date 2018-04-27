@@ -14,11 +14,11 @@ import { Entity, Locale, Response } from '../models';
 export class EntityComponent implements OnInit {
 
     public list = new Array<Entity>();
-    private locales = [
+    public locales = [
         new Locale('pt_BR', 'Português (BR)'),
         new Locale('en_US', 'English (US)')
     ];
-    private filter = {
+    public filter = {
         type: '',
         locale: 'pt_BR'
     };
