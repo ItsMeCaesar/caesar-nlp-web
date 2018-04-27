@@ -17,9 +17,9 @@
         Add
       </button>
     </div>
-    <select class="custom-select w-25"[(ngModel)]="filter.locale">
-        <option *ngFor="let l of locales" [ngValue]="l.code">{{l.description}}</option>
-      </select>
+    <select class="custom-select w-25" [(ngModel)]="filter.locale">
+      <option *ngFor="let l of locales" [ngValue]="l.code">{{l.description}}</option>
+    </select>
   </div>
   <hr>
 
@@ -34,5 +34,16 @@
       <app-entity-type (onload)="loadEntityTypes(types)"></app-entity-type>
     </div>
   </ng-template>
+
+  <div class="container-fluid">
+    <div class="d-flex flex-wrap">
+      <div class="card mr-3 mb-3" *ngFor="let e of list" style="width: 14em">
+        <div class="card-body">
+          <h6 class="card-title">{{ e.type }}</h6>
+          <p class="card-text">{{ e.value }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>

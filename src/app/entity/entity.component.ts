@@ -48,6 +48,16 @@ export class EntityComponent implements OnInit {
             }
         });
 
+        this.list.push(new Entity('', 'pt_BR', 'a test sausan siudas daisud saiuhda', 'org'));
+        this.list.push(new Entity('', 'pt_BR', 'a test sausan siudas daisud saiuhda', 'org'));
+        this.list.push(new Entity('', 'pt_BR', 'a test sausan siudas daisud saiuhda', 'org'));
+        this.list.push(new Entity('', 'pt_BR', 'a test sausan siudas daisud saiuhda', 'org'));
+        this.list.push(new Entity('', 'pt_BR', 'a test sausan siudas daisud saiuhda', 'date'));
+        this.list.push(new Entity('', 'pt_BR', 'a test sausan siudas daisud saiuhda', 'date'));
+        this.list.push(new Entity('', 'pt_BR', 'a test sausan siudas daisud saiuhda', 'time'));
+        this.list.push(new Entity('', 'pt_BR', 'a test sausan siudas daisud saiuhda', 'time'));
+        this.list.push(new Entity('', 'pt_BR', 'a test sausan siudas daisud saiuhda', 'time'));
+
         // this.service.get((response: Response) => {
         //     if (response.ok) {
         //         this.list = response.list;
