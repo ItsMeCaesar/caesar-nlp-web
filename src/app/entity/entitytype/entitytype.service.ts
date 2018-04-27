@@ -28,6 +28,7 @@ export class EntityTypeService {
         return this.http.get<Array<EntityType>>(`${environment.apihost}/entitytype`)
             .subscribe(data => {
                 this.list = data;
+                this.list = this.list.sort((left, right) => left.name.localeCompare(right.name));
                 callback(new Response(true));
             }, error => {
                 const out = new Response(false);
@@ -43,11 +44,11 @@ export class EntityTypeService {
      * @param callback
      */
     add(value: string, callback: Function) {
-
         const et = new EntityType('', value);
         return this.http.post<EntityType>(`${environment.apihost}/entitytype`, et)
             .subscribe(data => {
                 this.list.push(data);
+                this.list = this.list.sort((left, right) => left.name.localeCompare(right.name));
                 callback(new Response(true));
             }, error => {
                 const out = new Response(false);
@@ -63,11 +64,10 @@ export class EntityTypeService {
      * @param callback
      */
     delete(et: EntityType, callback: Function) {
-        console.log('delete - et [' + et + ']');
         return this.http.delete(`${environment.apihost}/entitytype/${et.id}`)
             .subscribe(data => {
                 this.list = this.list.filter(obj => obj.id !== et.id);
-                console.log('delete - list [' + this.list + ']');
+                this.list = this.list.sort((left, right) => left.name.localeCompare(right.name));
                 callback(new Response(true));
             }, error => {
                 const out = new Response(false);
