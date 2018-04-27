@@ -7,6 +7,8 @@ import { environment } from '../../../environments/environment';
 @Injectable()
 export class EntityTypeService {
 
+    public list = new Array<EntityType>();
+
     /**
      * Constructor
      *
@@ -25,9 +27,8 @@ export class EntityTypeService {
 
         return this.http.get<Array<EntityType>>(`${environment.apihost}/entitytype`)
             .subscribe(data => {
-                const out = new Response(true);
-                out.list = data;
-                callback(out);
+                this.list = data;
+                callback(new Response(true));
             }, error => {
                 const out = new Response(false);
                 out.msg = error.msg;
@@ -44,11 +45,10 @@ export class EntityTypeService {
     add(value: string, callback: Function) {
 
         const et = new EntityType('', value);
-        return this.http.post<Array<EntityType>>(`${environment.apihost}/entitytype`, et)
+        return this.http.post<EntityType>(`${environment.apihost}/entitytype`, et)
             .subscribe(data => {
-                const out = new Response(true);
-                out.obj = data;
-                callback(out);
+                this.list.push(data);
+                callback(new Response(true));
             }, error => {
                 const out = new Response(false);
                 out.msg = error.msg;
@@ -63,11 +63,12 @@ export class EntityTypeService {
      * @param callback
      */
     delete(et: EntityType, callback: Function) {
-        console.log(et);
+        console.log('delete - et [' + et + ']');
         return this.http.delete(`${environment.apihost}/entitytype/${et.id}`)
             .subscribe(data => {
-                const out = new Response(true);
-                callback(out);
+                this.list = this.list.filter(obj => obj.id !== et.id);
+                console.log('delete - list [' + this.list + ']');
+                callback(new Response(true));
             }, error => {
                 const out = new Response(false);
                 out.msg = error.msg;

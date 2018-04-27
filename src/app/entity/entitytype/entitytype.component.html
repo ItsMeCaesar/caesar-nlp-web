@@ -1,21 +1,19 @@
-<div>
-  <h5>Entities Types</h5>
-
-  <div class="d-flex">
-    <input type="text" class="form-control" id="input_entitytype" placeholder="Enter name" [(ngModel)]="value">
-    <button type="button" class="btn btn-outline-primary ml-2" (click)="add()">
+<div class="d-flex">
+  <form class="d-flex justify-content-between w-100" (ngSubmit)="add()">
+    <input type="text" class="form-control" id="input_entitytype" placeholder="Enter name" autocomplete="off" [(ngModel)]="value" name="value" ngModel required>
+    <button type="submit" class="btn btn-outline-primary ml-2">
       Add
     </button>
-  </div>
-
-  <ul class="list-group mt-3">
-    <li class="list-group-item" *ngFor="let et of list">
-      <div class="d-flex justify-content-between align-items-center">
-        {{et.name}}
-        <button type="button" class="close" aria-label="Close" (click)="delete(et)">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-    </li>
-  </ul>
+  </form>
 </div>
+
+<ul class="list-group mt-3">
+  <li class="list-group-item" *ngFor="let et of service.list">
+    <div class="d-flex justify-content-between align-items-center">
+      {{et.name}}
+      <button type="button" class="close" aria-label="Close" (click)="delete(et)">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </li>
+</ul>

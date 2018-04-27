@@ -69,10 +69,10 @@ describe('EntityTypeComponent', () => {
         httpMock.verify();
 
         expect(req.request.method).toBe('GET');
-        expect(component.list.length).toBe(3);
-        expect(component.list[0].name).toBe('date');
-        expect(component.list[1].name).toBe('person');
-        expect(component.list[2].name).toBe('time');
+        expect(component.service.list.length).toBe(3);
+        expect(component.service.list[0].name).toBe('date');
+        expect(component.service.list[1].name).toBe('person');
+        expect(component.service.list[2].name).toBe('time');
 
         fixture.detectChanges();
         const compiled = fixture.debugElement.nativeElement;

@@ -12,7 +12,6 @@ import { EntityType, Response } from '../../models';
 })
 export class EntityTypeComponent implements OnInit {
 
-    public list = new Array<EntityType>();
     public value = '';
 
     /**
@@ -22,7 +21,7 @@ export class EntityTypeComponent implements OnInit {
      * @param app
      */
     constructor(
-        private service: EntityTypeService,
+        public service: EntityTypeService,
         private app: AppService
     ) { }
 
@@ -42,7 +41,6 @@ export class EntityTypeComponent implements OnInit {
             this.service.add(this.value, (response: Response) => {
                 this.app.loading = false;
                 if (response.ok) {
-                    this.list.push(response.obj);
                     this.value = '';
                 } else {
 
@@ -59,9 +57,7 @@ export class EntityTypeComponent implements OnInit {
     delete(et: EntityType) {
         this.app.loading = true;
         this.service.delete(et, (response: Response) => {
-            if (response.ok) {
-                this.load();
-            } else {
+            if (!response.ok) {
                 this.app.loading = false;
             }
         });
@@ -72,12 +68,8 @@ export class EntityTypeComponent implements OnInit {
      */
     load() {
         this.service.get((response: Response) => {
-            if (response.ok) {
+            if (!response.ok) {
                 this.app.loading = false;
-                this.list = response.list;
-                console.log(this.list);
-            } else {
-
             }
         });
     }
