@@ -32,7 +32,7 @@ export class EntityComponent implements OnInit {
      */
     constructor(
         private service: EntityService,
-        private typeService: EntityTypeService,
+        public typeService: EntityTypeService,
         private modalService: NgbModal
     ) { }
 

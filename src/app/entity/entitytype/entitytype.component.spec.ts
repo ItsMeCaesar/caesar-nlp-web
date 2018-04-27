@@ -1,7 +1,6 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { MockBackend, MockConnection } from '@angular/http/testing';
 
 import { EntityTypeComponent } from './entitytype.component';
@@ -42,13 +41,6 @@ describe('EntityTypeComponent', () => {
 
     it('should create the entity type', async(() => {
         expect(component).toBeTruthy();
-    }));
-
-    it('should render title in a h5 tag', async(() => {
-
-        fixture.detectChanges();
-        const compiled = fixture.debugElement.nativeElement;
-        expect(compiled.querySelector('h5').textContent).toContain('Entities Types');
     }));
 
     it('should retrieve the initial types', async(() => {
