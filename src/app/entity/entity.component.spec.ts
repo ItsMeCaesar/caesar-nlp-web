@@ -61,7 +61,7 @@ describe('EntityComponent', () => {
 
     it('should retrieve the initial entities', async(() => {
 
-        component.ngAfterViewInit();
+        component.ngOnInit();
 
         const req = httpMock.expectOne(`${environment.apihost}/entity/list`, 'call to api');
         req.flush([{
