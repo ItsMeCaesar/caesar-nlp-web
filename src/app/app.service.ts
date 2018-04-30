@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 
-import { Alert } from './models';
+import { Alert, Locale } from './models';
 
 @Injectable()
 export class AppService {
 
     public loading = false;
     public alert = new Alert(false, '', '');
+    public locales = [
+        new Locale('pt_BR', 'Português (BR)'),
+        new Locale('en_US', 'English (US)')
+    ];
 
     /**
      * Shows the alert
