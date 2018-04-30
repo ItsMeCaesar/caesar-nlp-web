@@ -40,32 +40,17 @@ export class EntityComponent implements OnInit {
      * Initialize
      */
     ngOnInit() {
-        this.typeService.get((response: Response) => {
-            if (response.ok) {
-                this.filter.type = this.typeService.list[0].name;
-                this.filter.locale = this.app.locales[0].code;
+        this.typeService.get((resp1: Response) => {
+            if (resp1.ok) {
+                if (this.typeService.list.length > 0) {
+                    this.filter.type = this.typeService.list[0].name;
+                    this.filter.locale = this.app.locales[0].code;
+                    this.callAPI();
+                }
             } else {
 
             }
         });
-
-        this.list.push(new Entity('', 'pt_BR', 'a test sausan siudas daisud saiuhda', 'org'));
-        this.list.push(new Entity('', 'pt_BR', 'a test sausan siudas daisud saiuhda', 'org'));
-        this.list.push(new Entity('', 'pt_BR', 'a test sausan siudas daisud saiuhda', 'org'));
-        this.list.push(new Entity('', 'pt_BR', 'a test sausan siudas daisud saiuhda', 'org'));
-        this.list.push(new Entity('', 'pt_BR', 'a test sausan siudas daisud saiuhda', 'date'));
-        this.list.push(new Entity('', 'pt_BR', 'a test sausan siudas daisud saiuhda', 'date'));
-        this.list.push(new Entity('', 'pt_BR', 'a test sausan siudas daisud saiuhda', 'time'));
-        this.list.push(new Entity('', 'pt_BR', 'a test sausan siudas daisud saiuhda', 'time'));
-        this.list.push(new Entity('', 'pt_BR', 'a test sausan siudas daisud saiuhda', 'time'));
-
-        // this.service.get((response: Response) => {
-        //     if (response.ok) {
-        //         this.list = response.list;
-        //     } else {
-
-        //     }
-        // });
     }
 
     /**
@@ -108,5 +93,43 @@ export class EntityComponent implements OnInit {
             console.log(f + ' is not valid');
         }
     }
+
+    /**
+     * Delete an entity
+     */
+    delete() {
+        this.app.loading = true;
+        this.service.delete(this.model, (response: Response) => {
+            this.app.loading = false;
+            if (response.ok) {
+                this.list.splice(this.list.findIndex(e => e.id === this.model.id), 1);
+                this.modal.close();
+            } else {
+
+            }
+        });
+    }
+
+    /**
+     * Query the API
+     */
+    callAPI() {
+        console.log('callAPI');
+        this.service.get(this.filter, (resp2: Response) => {
+            if (resp2.ok) {
+                this.list = resp2.list;
+            } else {
+
+            }
+        });
+    }
+
+    /**
+     * Something change in the filter's attributes
+     */
+    onFilterChange() {
+        this.callAPI();
+    }
+
 
 }

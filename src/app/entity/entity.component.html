@@ -18,14 +18,14 @@
   <div class="row">
     <div class="form-group col-4">
       <label for="entity_filter_select_type">Type</label>
-      <select id="entity_filter_select_type" class="custom-select" [(ngModel)]="filter.type">
+      <select id="entity_filter_select_type" class="custom-select" [(ngModel)]="filter.type" (ngModelChange)="onFilterChange()">
         <option *ngFor="let t of typeService.list" [ngValue]="t.name">{{t.name}}</option>
       </select>
     </div>
 
     <div class="form-group col-2">
       <label for="entity_filter_select_locale">Locale</label>
-      <select id="entity_filter_select_locale" class="custom-select" [(ngModel)]="filter.locale">
+      <select id="entity_filter_select_locale" class="custom-select" [(ngModel)]="filter.locale" (ngModelChange)="onFilterChange()">
         <option *ngFor="let l of app.locales" [ngValue]="l.code">{{l.description}}</option>
       </select>
     </div>
@@ -44,8 +44,8 @@
         <div class="card-header">
           <div class="d-flex justify-content-between">
             {{ e.type }}
-            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-              <span aria-hidden="true">&times;</span>
+            <button type="button" class="close" aria-label="Edit" (click)="model=e; open(entitymodal);">
+              <fa name="pencil"></fa>
             </button>
           </div>
         </div>
@@ -60,7 +60,7 @@
 
 <ng-template #entitymodal let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title">New Entity</h4>
+    <h4 class="modal-title">{{ model.id === '' ? 'New Entity' : 'Entity' }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -87,6 +87,9 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="submit" class="btn btn-outline-primary" (click)="f.ngSubmit.emit()" [disabled]="!f.form.valid">Save</button>
+    <div class="d-flex justify-content-between">
+      <button type="submit" class="btn btn-outline-danger" (click)="delete()" [hidden]="model.id ===''">Remove</button>
+      <button type="submit" class="btn btn-outline-primary" (click)="f.ngSubmit.emit()" [disabled]="!f.form.valid">Save</button>
+    </div>
   </div>
 </ng-template>
