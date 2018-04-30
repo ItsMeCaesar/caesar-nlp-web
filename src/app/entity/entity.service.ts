@@ -30,9 +30,7 @@ export class EntityService {
                 out.list = data;
                 callback(out);
             }, error => {
-                const out = new Response(false);
-                out.msg = error.msg;
-                callback(out);
+                this.handleError(error, callback);
             });
     }
 
@@ -51,9 +49,7 @@ export class EntityService {
                     out.obj = data;
                     callback(out);
                 }, error => {
-                    const out = new Response(false);
-                    out.msg = error.msg;
-                    callback(out);
+                    this.handleError(error, callback);
                 });
         } else {
             return this.http.put<Entity>(`${environment.apihost}/entity`, model)
@@ -62,9 +58,7 @@ export class EntityService {
                     out.obj = data;
                     callback(out);
                 }, error => {
-                    const out = new Response(false);
-                    out.msg = error.msg;
-                    callback(out);
+                    this.handleError(error, callback);
                 });
         }
     }
@@ -81,10 +75,20 @@ export class EntityService {
             .subscribe(data => {
                 callback(new Response(true));
             }, error => {
-                const out = new Response(false);
-                out.msg = error.msg;
-                callback(out);
+                this.handleError(error, callback);
             });
+    }
+
+    /**
+     * Handle API errors
+     *
+     * @param error
+     * @param callback
+     */
+    private handleError(error: any, callback: Function) {
+        const out = new Response(false);
+        out.msg = error.msg;
+        callback(out);
     }
 
 }
