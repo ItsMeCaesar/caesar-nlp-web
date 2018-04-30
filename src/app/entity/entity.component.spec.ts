@@ -4,11 +4,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 import { EntityComponent } from './entity.component';
 import { EntityService } from './entity.service';
 import { EntityTypeComponent, EntityTypeService } from '../entitytype';
 import { AppService } from '../app.service';
+
+import { Entity } from '../models';
 
 import { environment } from '../../environments/environment';
 
@@ -25,7 +28,8 @@ describe('EntityComponent', () => {
                 HttpClientTestingModule,
                 HttpClientModule,
                 FormsModule,
-                NgbModule.forRoot()
+                NgbModule.forRoot(),
+                AngularFontAwesomeModule
             ],
             declarations: [
                 EntityComponent,
@@ -63,59 +67,39 @@ describe('EntityComponent', () => {
     }));
 
 
-    it('should retrieve the initial entity types', async(() => {
+    it('should retrieve the initial entities', async(() => {
 
-        component.ngOnInit();
+        const filter = new Entity('', 'pt_BR', '', 'person');
+        component.filter = filter;
 
-        const req = httpMock.expectOne(`${environment.apihost}/entitytype`, 'call to api');
+        component.callAPI();
+
+        const url = `${environment.apihost}/entity/list?locale=${filter.locale}&type=${filter.type}&value=${filter.value}`;
+
+        const req = httpMock.expectOne(url, 'call to api');
         req.flush([{
             id: '1',
-            name: 'date'
+            value: 'michel temer',
+            locale: 'pt_BR',
+            type: 'person'
         }, {
             id: '2',
-            name: 'person'
-        }, {
-            id: '3',
-            name: 'time'
+            value: 'carmen lúcia',
+            locale: 'pt_BR',
+            type: 'person'
         }]);
         httpMock.verify();
 
         expect(req.request.method).toBe('GET');
-        expect(component.typeService.list.length).toBe(3);
-        expect(component.typeService.list[0].name).toBe('date');
-        expect(component.typeService.list[1].name).toBe('person');
-        expect(component.typeService.list[2].name).toBe('time');
+        expect(component.list.length).toBe(2);
+
+        expect(component.list[0].locale).toBe('pt_BR');
+        expect(component.list[0].value).toBe('michel temer');
+        expect(component.list[0].type).toBe('person');
+
+        expect(component.list[1].locale).toBe('pt_BR');
+        expect(component.list[1].value).toBe('carmen lúcia');
+        expect(component.list[1].type).toBe('person');
 
     }));
-
-    // it('should retrieve the initial entities', async(() => {
-
-    //     component.ngOnInit();
-
-    //     const req = httpMock.expectOne(`${environment.apihost}/entity/list`, 'call to api');
-    //     req.flush([{
-    //         id: '1',
-    //         value: 'michel temer',
-    //         locale: 'pt_BR',
-    //         type: 'person'
-    //     }, {
-    //         id: '2',
-    //         value: 'donald trump',
-    //         locale: 'en_US',
-    //         type: 'person'
-    //     }]);
-    //     httpMock.verify();
-
-    //     expect(req.request.method).toBe('GET');
-    //     expect(component.list.length).toBe(2);
-
-    //     expect(component.list[0].locale).toBe('pt_BR');
-    //     expect(component.list[0].value).toBe('michel temer');
-    //     expect(component.list[0].type).toBe('person');
-
-    //     expect(component.list[1].locale).toBe('en_US');
-    //     expect(component.list[1].value).toBe('donald trump');
-    //     expect(component.list[1].type).toBe('person');
-
-    // }));
 });

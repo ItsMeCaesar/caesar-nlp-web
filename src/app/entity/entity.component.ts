@@ -57,8 +57,14 @@ export class EntityComponent implements OnInit {
      * Opens the modal
      *
      * @param content
+     * @param entity
      */
-    open(content) {
+    open(content, entity: Entity) {
+        if (entity == null) {
+            this.model = new Entity('', 'pt_BR', '', '');
+        } else {
+            this.model = entity;
+        }
         this.modal = this.modalService.open(content);
         this.modal.result.then(result => {
             console.log(`Closed with: ${result}`);
@@ -104,6 +110,7 @@ export class EntityComponent implements OnInit {
             if (response.ok) {
                 this.list.splice(this.list.findIndex(e => e.id === this.model.id), 1);
                 this.modal.close();
+                this.callAPI();
             } else {
 
             }
@@ -114,8 +121,9 @@ export class EntityComponent implements OnInit {
      * Query the API
      */
     callAPI() {
-        console.log('callAPI');
+        this.app.loading = true;
         this.service.get(this.filter, (resp2: Response) => {
+            this.app.loading = false;
             if (resp2.ok) {
                 this.list = resp2.list;
             } else {

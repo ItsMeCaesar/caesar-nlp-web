@@ -2,7 +2,7 @@
 
   <div class="d-flex justify-content-between">
     <h2>Entities</h2>
-    <button type="submit" class="btn btn-outline-primary" (click)="open(entitymodal)">
+    <button type="submit" class="btn btn-outline-primary" (click)="open(entitymodal, null)">
       Add
     </button>
   </div>
@@ -44,7 +44,7 @@
         <div class="card-header">
           <div class="d-flex justify-content-between">
             {{ e.type }}
-            <button type="button" class="close" aria-label="Edit" (click)="model=e; open(entitymodal);">
+            <button type="button" class="close" aria-label="Edit" (click)="open(entitymodal, e)">
               <fa name="pencil"></fa>
             </button>
           </div>
