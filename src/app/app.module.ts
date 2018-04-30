@@ -12,7 +12,7 @@ import { AppRoutingModule } from './app.routing';
 import { HomeComponent } from './home';
 import { DomainComponent, DomainService } from './domain';
 import { EntityComponent, EntityService } from './entity';
-import { EntityTypeComponent, EntityTypeService } from './entity/entitytype';
+import { EntityTypeComponent, EntityTypeService } from './entitytype';
 
 @NgModule({
   declarations: [

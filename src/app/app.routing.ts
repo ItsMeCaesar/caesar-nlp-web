@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home';
 import { DomainComponent } from './domain';
 import { EntityComponent } from './entity';
-
+import { EntityTypeComponent } from './entitytype';
 
 const appRoutes: Routes = [
     {
@@ -15,6 +15,9 @@ const appRoutes: Routes = [
     }, {
         path: 'entity',
         component: EntityComponent
+    }, {
+        path: 'entitytype',
+        component: EntityTypeComponent
     },
     { path: '**', redirectTo: '' }
 ];
