@@ -1,45 +1,49 @@
 <div class="container-fluid p-3">
 
   <h2>Entities</h2>
-  <div class="d-flex justify-content-between">
-    <h6>Manage entities extracted from intents</h6>
-    <h6>Locale</h6>
-  </div>
-  <div class="d-flex justify-content-between">
-    <div>
-      <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" [(ngModel)]="filter.type">
-        <label ngbButtonLabel class="btn-primary" *ngFor="let t of typeService.list">
-          <input ngbButton type="radio" [value]="t.name"> {{t.name}}
-        </label>
-      </div>
+  <h6>Manage entities extracted from intents</h6>
+  <hr>
 
-      <button type="button" class="btn btn-outline-primary ml-4" (click)="open(entitytypemodal)">
-        Add
-      </button>
+  <div class="row">
+    <div class="col-12">
+      <h5>Filter</h5>
     </div>
-    <select class="custom-select w-25" [(ngModel)]="filter.locale">
-      <option *ngFor="let l of locales" [ngValue]="l.code">{{l.description}}</option>
-    </select>
+  </div>
+  <div class="row">
+    <div class="form-group col-4">
+      <label for="entity_filter_select_type">Type</label>
+      <select id="entity_filter_select_type" class="custom-select" [(ngModel)]="filter.type">
+        <option *ngFor="let t of typeService.list" [ngValue]="t.name">{{t.name}}</option>
+      </select>
+    </div>
+
+    <div class="form-group col-2">
+      <label for="entity_filter_select_locale">Locale</label>
+      <select id="entity_filter_select_locale" class="custom-select" [(ngModel)]="filter.locale">
+        <option *ngFor="let l of locales" [ngValue]="l.code">{{l.description}}</option>
+      </select>
+    </div>
+
+    <div class="form-group col-6">
+      <label for="entity_filter_input_value">Locale</label>
+      <input id="entity_filter_input_value" type="text" class="form-control" placeholder="Enter value" autocomplete="off" [(ngModel)]="filter.value"
+        name="value" ngModel required>
+    </div>
   </div>
   <hr>
 
-  <ng-template #entitytypemodal let-c="close" let-d="dismiss">
-    <div class="modal-header">
-      <h4 class="modal-title">Entities Types</h4>
-      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <app-entity-type (onload)="loadEntityTypes(types)"></app-entity-type>
-    </div>
-  </ng-template>
-
   <div class="container-fluid">
     <div class="d-flex flex-wrap">
-      <div class="card mr-3 mb-3" *ngFor="let e of list" style="width: 14em">
+      <div class="card bg-light mr-3 mb-3" *ngFor="let e of list" style="width: 14em">
+        <div class="card-header">
+          <div class="d-flex justify-content-between">
+            {{ e.type }}
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </div>
         <div class="card-body">
-          <h6 class="card-title">{{ e.type }}</h6>
           <p class="card-text">{{ e.value }}</p>
         </div>
       </div>

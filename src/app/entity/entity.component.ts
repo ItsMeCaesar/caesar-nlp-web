@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 import { EntityService } from './entity.service';
-import { EntityTypeService } from './entitytype';
+import { EntityTypeService } from '../entitytype';
 
 import { Entity, Locale, Response } from '../models';
 

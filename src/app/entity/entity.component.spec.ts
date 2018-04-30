@@ -7,7 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { EntityComponent } from './entity.component';
 import { EntityService } from './entity.service';
-import { EntityTypeComponent, EntityTypeService } from './entitytype';
+import { EntityTypeComponent, EntityTypeService } from '../entitytype';
 import { AppService } from '../app.service';
 
 import { environment } from '../../environments/environment';
