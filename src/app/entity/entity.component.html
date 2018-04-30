@@ -11,12 +11,11 @@
   <hr>
 
   <div class="row">
-    <div class="col-12">
+    <div class="form-group col-1 d-flex align-items-center">
       <h5>Filter</h5>
     </div>
-  </div>
-  <div class="row">
-    <div class="form-group col-4">
+
+    <div class="form-group col-3">
       <label for="entity_filter_select_type">Type</label>
       <select id="entity_filter_select_type" class="custom-select" [(ngModel)]="filter.type" (ngModelChange)="onFilterChange()">
         <option *ngFor="let t of typeService.list" [ngValue]="t.name">{{t.name}}</option>
@@ -66,7 +65,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <form #f="ngForm" class="p-4" (ngSubmit)="add(f)">
+    <form #f="ngForm" class="p-4" (ngSubmit)="persist(f)">
       <div class="form-group row">
         <label for="entity_select_type">Type</label>
         <select id="entity_select_type" class="custom-select" [(ngModel)]="model.type" name="type">
@@ -87,7 +86,7 @@
     </form>
   </div>
   <div class="modal-footer">
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between w-100">
       <button type="submit" class="btn btn-outline-danger" (click)="delete()" [hidden]="model.id ===''">Remove</button>
       <button type="submit" class="btn btn-outline-primary" (click)="f.ngSubmit.emit()" [disabled]="!f.form.valid">Save</button>
     </div>

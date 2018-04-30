@@ -37,23 +37,36 @@ export class EntityService {
     }
 
     /**
-     * Add a new entity
+     * Add a new entity or update an existing one
      *
      * @param model
      * @param callback
      */
-    add(model: Entity, callback: Function) {
+    persist(model: Entity, callback: Function) {
 
-        return this.http.post<Entity>(`${environment.apihost}/entity`, model)
-            .subscribe(data => {
-                const out = new Response(true);
-                out.obj = data;
-                callback(out);
-            }, error => {
-                const out = new Response(false);
-                out.msg = error.msg;
-                callback(out);
-            });
+        if (model.id === '') {
+            return this.http.post<Entity>(`${environment.apihost}/entity`, model)
+                .subscribe(data => {
+                    const out = new Response(true);
+                    out.obj = data;
+                    callback(out);
+                }, error => {
+                    const out = new Response(false);
+                    out.msg = error.msg;
+                    callback(out);
+                });
+        } else {
+            return this.http.put<Entity>(`${environment.apihost}/entity`, model)
+                .subscribe(data => {
+                    const out = new Response(true);
+                    out.obj = data;
+                    callback(out);
+                }, error => {
+                    const out = new Response(false);
+                    out.msg = error.msg;
+                    callback(out);
+                });
+        }
     }
 
     /**

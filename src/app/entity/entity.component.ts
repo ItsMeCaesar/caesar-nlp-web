@@ -63,7 +63,7 @@ export class EntityComponent implements OnInit {
         if (entity == null) {
             this.model = new Entity('', 'pt_BR', '', '');
         } else {
-            this.model = entity;
+            this.model = Object.assign({}, entity);
         }
         this.modal = this.modalService.open(content);
         this.modal.result.then(result => {
@@ -80,12 +80,12 @@ export class EntityComponent implements OnInit {
     }
 
     /**
-     * Adds a new entity
+     * Add a new entity or update an existing one
      */
-    add(f: NgForm) {
+    persist(f: NgForm) {
         if (f.valid) {
             this.app.loading = true;
-            this.service.add(this.model, (response: Response) => {
+            this.service.persist(this.model, (response: Response) => {
                 this.app.loading = false;
                 if (response.ok) {
                     this.model = new Entity('', 'pt_BR', '', '');
