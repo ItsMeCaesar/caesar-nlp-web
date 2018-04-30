@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { EntityService } from './entity.service';
 import { EntityTypeService } from '../entitytype';
@@ -16,11 +17,10 @@ export class EntityComponent implements OnInit {
 
     public list = new Array<Entity>();
 
-    public filter = {
-        type: '',
-        locale: 'pt_BR',
-        value: ''
-    };
+    public model = new Entity('', 'pt_BR', '', '');
+    public filter = new Entity('', 'pt_BR', '', '');
+
+    private modal: NgbModalRef;
 
     /**
      * Constructor
@@ -43,6 +43,7 @@ export class EntityComponent implements OnInit {
         this.typeService.get((response: Response) => {
             if (response.ok) {
                 this.filter.type = this.typeService.list[0].name;
+                this.filter.locale = this.app.locales[0].code;
             } else {
 
             }
@@ -73,7 +74,8 @@ export class EntityComponent implements OnInit {
      * @param content
      */
     open(content) {
-        this.modalService.open(content).result.then(result => {
+        this.modal = this.modalService.open(content);
+        this.modal.result.then(result => {
             console.log(`Closed with: ${result}`);
         }, reason => {
             if (reason === ModalDismissReasons.ESC) {
@@ -84,6 +86,27 @@ export class EntityComponent implements OnInit {
                 console.log(`Dismissed with: ${reason}`);
             }
         });
+    }
+
+    /**
+     * Adds a new entity
+     */
+    add(f: NgForm) {
+        if (f.valid) {
+            this.app.loading = true;
+            this.service.add(this.model, (response: Response) => {
+                this.app.loading = false;
+                if (response.ok) {
+                    this.model = new Entity('', 'pt_BR', '', '');
+                    this.list.push(response.obj);
+                    this.modal.close();
+                } else {
+
+                }
+            });
+        } else {
+            console.log(f + ' is not valid');
+        }
     }
 
 }

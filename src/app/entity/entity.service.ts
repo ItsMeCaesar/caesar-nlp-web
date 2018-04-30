@@ -17,7 +17,7 @@ export class EntityService {
     ) { }
 
     /**
-     * Retrieve the domains
+     * Retrieve the entities
      *
      * @param callback
      */
@@ -27,6 +27,26 @@ export class EntityService {
             .subscribe(data => {
                 const out = new Response(true);
                 out.list = data;
+                callback(out);
+            }, error => {
+                const out = new Response(false);
+                out.msg = error.msg;
+                callback(out);
+            });
+    }
+
+    /**
+     * Add a new entity
+     *
+     * @param model
+     * @param callback
+     */
+    add(model: Entity, callback: Function) {
+
+        return this.http.post<Entity>(`${environment.apihost}/entity`, model)
+            .subscribe(data => {
+                const out = new Response(true);
+                out.obj = data;
                 callback(out);
             }, error => {
                 const out = new Response(false);
