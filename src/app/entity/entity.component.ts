@@ -89,7 +89,12 @@ export class EntityComponent implements OnInit {
                 this.app.loading = false;
                 if (response.ok) {
                     this.model = new Entity('', 'pt_BR', '', '');
-                    this.list.push(response.obj);
+                    const index = this.list.findIndex(e => e.id === response.obj.id);
+                    if (index > -1) {
+                        this.list[index] = response.obj;
+                    } else {
+                        this.list.push(response.obj);
+                    }
                     this.modal.close();
                 } else {
 
