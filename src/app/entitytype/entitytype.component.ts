@@ -82,8 +82,9 @@ export class EntityTypeComponent implements OnInit {
     delete(et: EntityType) {
         this.app.loading = true;
         this.service.delete(et, (response: Response) => {
+            this.app.loading = false;
             if (!response.ok) {
-                this.app.loading = false;
+
             }
         });
     }
@@ -93,8 +94,9 @@ export class EntityTypeComponent implements OnInit {
      */
     load() {
         this.service.get((response: Response) => {
+            this.app.loading = false;
             if (!response.ok) {
-                this.app.loading = false;
+
             }
         });
     }
