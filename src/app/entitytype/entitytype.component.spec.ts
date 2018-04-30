@@ -46,11 +46,11 @@ describe('EntityTypeComponent', () => {
         expect(component).toBeTruthy();
     }));
 
-    it('should retrieve the initial types', async(() => {
+    it('should retrieve the initial types', () => {
 
         component.ngOnInit();
 
-        const req = httpMock.expectOne(`${environment.apihost}/entitytype`, 'call to api');
+        const req = httpMock.expectOne({ method: 'GET', url: `${environment.apihost}/entitytype` });
         req.flush([{
             id: '1',
             name: 'date'
@@ -61,7 +61,6 @@ describe('EntityTypeComponent', () => {
             id: '3',
             name: 'time'
         }]);
-        httpMock.verify();
 
         expect(req.request.method).toBe('GET');
         expect(component.service.list.length).toBe(3);
@@ -74,6 +73,48 @@ describe('EntityTypeComponent', () => {
         const buttons = compiled.querySelectorAll('.list-group-item');
         expect(buttons.length).toBe(3);
 
-    }));
+    });
+
+
+    it('should add an entity type and delete it', () => {
+
+        const initialLength = component.service.list.length;
+
+        fixture.detectChanges();
+        let compiled = fixture.debugElement.nativeElement;
+        const initialButtons = compiled.querySelectorAll('.list-group-item').length;
+
+        component.open('modal');
+        component.value = 'date';
+        component.add();
+
+        const req1 = httpMock.expectOne({ method: 'POST', url: `${environment.apihost}/entitytype` });
+        req1.flush([{
+            id: '1',
+            name: 'date'
+        }]);
+
+        expect(req1.request.method).toBe('POST');
+
+        const newLength = component.service.list.length;
+        expect(initialLength).toBeLessThan(newLength);
+
+        fixture.detectChanges();
+        compiled = fixture.debugElement.nativeElement;
+        const newButtons = compiled.querySelectorAll('.list-group-item').length;
+        expect(initialButtons).toBeLessThan(newButtons);
+
+        /* DELETE */
+        const et = new EntityType('1', 'date');
+        component.delete(et);
+
+        const req2 = httpMock.expectOne({ method: 'DELETE', url: `${environment.apihost}/entitytype/${et.id}` });
+        expect(req2.request.method).toBe('DELETE');
+        req2.flush(null);
+
+        const deleteLength = component.service.list.length;
+        expect(deleteLength).toBe(initialLength);
+
+    });
 
 });

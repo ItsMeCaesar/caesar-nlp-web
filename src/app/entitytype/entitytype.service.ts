@@ -31,9 +31,7 @@ export class EntityTypeService {
                 this.list = this.list.sort((left, right) => left.name.localeCompare(right.name));
                 callback(new Response(true));
             }, error => {
-                const out = new Response(false);
-                out.msg = error.msg;
-                callback(out);
+                this.handleError(error, callback);
             });
     }
 
@@ -51,9 +49,7 @@ export class EntityTypeService {
                 this.list = this.list.sort((left, right) => left.name.localeCompare(right.name));
                 callback(new Response(true));
             }, error => {
-                const out = new Response(false);
-                out.msg = error.msg;
-                callback(out);
+                this.handleError(error, callback);
             });
     }
 
@@ -66,14 +62,25 @@ export class EntityTypeService {
     delete(et: EntityType, callback: Function) {
         return this.http.delete(`${environment.apihost}/entitytype/${et.id}`)
             .subscribe(data => {
-                this.list = this.list.filter(obj => obj.id !== et.id);
+                this.list.splice(this.list.findIndex(obj => obj.id === et.id), 1);
                 this.list = this.list.sort((left, right) => left.name.localeCompare(right.name));
                 callback(new Response(true));
             }, error => {
-                const out = new Response(false);
-                out.msg = error.msg;
-                callback(out);
+                this.handleError(error, callback);
             });
+    }
+
+
+    /**
+     * Handle API errors
+     *
+     * @param error
+     * @param callback
+     */
+    private handleError(error: any, callback: Function) {
+        const out = new Response(false);
+        out.msg = error.msg;
+        callback(out);
     }
 
 }
