@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { EntityType, Response } from '../../models';
-import { environment } from '../../../environments/environment';
+import { EntityType, Response } from '../models';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class EntityTypeService {

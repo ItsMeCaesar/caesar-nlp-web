@@ -1,0 +1,43 @@
+<div class="container-fluid p-3">
+
+  <div class="d-flex justify-content-between">
+    <h2>Entity Types</h2>
+    <button type="submit" class="btn btn-outline-primary" (click)="open(entitytypemodal)">
+      Add
+    </button>
+  </div>
+  <h6>Manage the types used by entities</h6>
+  <hr>
+
+  <ul class="list-group mt-3">
+    <li class="list-group-item" *ngFor="let et of service.list">
+      <div class="d-flex justify-content-between align-items-center">
+        {{et.name}}
+        <button type="button" class="close" aria-label="Close" (click)="delete(et)">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<ng-template #entitytypemodal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">New Entity Type</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="add()">
+      <div class="form-group w-100">
+        <label for="input_entitytype">Type name</label>
+        <input id="input_entitytype" type="text" class="form-control" placeholder="Enter name" autocomplete="off" [(ngModel)]="value"
+          name="value" ngModel required>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-outline-primary">Save</button>
+  </div>
+</ng-template>

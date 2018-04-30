@@ -3,13 +3,15 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { EntityTypeComponent } from './entitytype.component';
 import { EntityTypeService } from './entitytype.service';
-import { AppService } from '../../app.service';
+import { AppService } from '../app.service';
 
-import { Response, EntityType } from '../../models';
+import { Response, EntityType } from '../models';
 
-import { environment } from '../../../environments/environment';
+import { environment } from '../../environments/environment';
 
 describe('EntityTypeComponent', () => {
 
@@ -22,7 +24,8 @@ describe('EntityTypeComponent', () => {
         TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
-                FormsModule
+                FormsModule,
+                NgbModule.forRoot()
             ],
             declarations: [
                 EntityTypeComponent
