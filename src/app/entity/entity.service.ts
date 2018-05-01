@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { Entity, Response } from '../models';
 import { environment } from '../../environments/environment';
 
+import { AppService } from '../app.service';
+
 @Injectable()
 export class EntityService {
 
@@ -11,9 +13,11 @@ export class EntityService {
      * Constructor
      *
      * @param http
+     * @param app
      */
     constructor(
-        private http: HttpClient
+        private http: HttpClient,
+        private app: AppService
     ) { }
 
     /**
@@ -29,7 +33,7 @@ export class EntityService {
                 const out = new Response(true);
                 out.list = data;
                 callback(out);
-            }, error => this.handleError(error, callback));
+            }, error => this.app.handleError(error, callback));
     }
 
     /**
@@ -46,14 +50,14 @@ export class EntityService {
                     const out = new Response(true);
                     out.obj = data;
                     callback(out);
-                }, error => this.handleError(error, callback));
+                }, error => this.app.handleError(error, callback));
         } else {
             return this.http.put<Entity>(`${environment.apihost}/entity`, model)
                 .subscribe(data => {
                     const out = new Response(true);
                     out.obj = data;
                     callback(out);
-                }, error => this.handleError(error, callback));
+                }, error => this.app.handleError(error, callback));
         }
     }
 
@@ -68,19 +72,7 @@ export class EntityService {
         return this.http.delete<Entity>(`${environment.apihost}/entity/${model.id}`)
             .subscribe(data => {
                 callback(new Response(true));
-            }, error => this.handleError(error, callback));
-    }
-
-    /**
-     * Handle API errors
-     *
-     * @param error
-     * @param callback
-     */
-    private handleError(error: any, callback: Function) {
-        const out = new Response(false);
-        out.msg = error.msg;
-        callback(out);
+            }, error => this.app.handleError(error, callback));
     }
 
 }
