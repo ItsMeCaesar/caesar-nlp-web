@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { EntityTypeService } from './entitytype.service';
 import { AppService } from '../app.service';
@@ -43,17 +43,6 @@ export class EntityTypeComponent implements OnInit {
      */
     open(content) {
         this.modal = this.modalService.open(content);
-        this.modal.result.then(result => {
-            console.log(`Closed with: ${result}`);
-        }, reason => {
-            if (reason === ModalDismissReasons.ESC) {
-                console.log('Dismissed by pressing ESC');
-            } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-                console.log('Dismissed by clicking on a backdrop');
-            } else {
-                console.log(`Dismissed with: ${reason}`);
-            }
-        });
     }
 
     /**
