@@ -30,9 +30,7 @@ export class EntityTypeService {
                 this.list = data;
                 this.list = this.list.sort((left, right) => left.name.localeCompare(right.name));
                 callback(new Response(true));
-            }, error => {
-                this.handleError(error, callback);
-            });
+            }, error => this.handleError(error, callback));
     }
 
     /**
@@ -48,9 +46,7 @@ export class EntityTypeService {
                 this.list.push(data);
                 this.list = this.list.sort((left, right) => left.name.localeCompare(right.name));
                 callback(new Response(true));
-            }, error => {
-                this.handleError(error, callback);
-            });
+            }, error => this.handleError(error, callback));
     }
 
     /**
@@ -65,9 +61,7 @@ export class EntityTypeService {
                 this.list.splice(this.list.findIndex(obj => obj.id === et.id), 1);
                 this.list = this.list.sort((left, right) => left.name.localeCompare(right.name));
                 callback(new Response(true));
-            }, error => {
-                this.handleError(error, callback);
-            });
+            }, error => this.handleError(error, callback));
     }
 
 
