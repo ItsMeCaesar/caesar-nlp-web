@@ -22,7 +22,7 @@ export class EntityComponent implements OnInit {
     public model = new Entity('', 'pt_BR', '', '');
     public filter = new Entity('', 'pt_BR', '', '');
 
-    private localePipe = new LocalePipe();
+    public localePipe = new LocalePipe();
 
     private modal: NgbModalRef;
 
