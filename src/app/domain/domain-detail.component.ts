@@ -70,16 +70,15 @@ export class DomainDetailComponent implements OnInit {
      */
     delete() {
         this.app.loading = true;
-        // this.service.delete(this.model, (response: Response) => {
-        //     this.app.loading = false;
-        //     if (response.ok) {
-        //         this.list.splice(this.list.findIndex(e => e.id === this.model.id), 1);
-        //         this.modal.close();
-        //         this.callAPI();
-        //     } else {
+        this.service.delete(this.model, (response: Response) => {
+            this.app.loading = false;
+            if (response.ok) {
+                this.service.list.splice(this.service.list.findIndex(e => e.id === this.model.id), 1);
+                this.router.navigate(['domain']);
+            } else {
 
-        //     }
-        // });
+            }
+        });
     }
 
 }

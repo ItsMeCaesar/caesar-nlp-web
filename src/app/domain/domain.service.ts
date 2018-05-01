@@ -71,4 +71,19 @@ export class DomainService {
         }
     }
 
+
+    /**
+     * Delete a domain
+     *
+     * @param model
+     * @param callback
+     */
+    delete(model: Domain, callback: Function) {
+
+        return this.http.delete<Domain>(`${environment.apihost}/domain/${model.id}`)
+            .subscribe(data => {
+                callback(new Response(true));
+            }, error => this.app.handleError(error, callback));
+    }
+
 }
