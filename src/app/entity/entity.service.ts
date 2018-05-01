@@ -29,9 +29,7 @@ export class EntityService {
                 const out = new Response(true);
                 out.list = data;
                 callback(out);
-            }, error => {
-                this.handleError(error, callback);
-            });
+            }, error => this.handleError(error, callback));
     }
 
     /**
@@ -48,18 +46,14 @@ export class EntityService {
                     const out = new Response(true);
                     out.obj = data;
                     callback(out);
-                }, error => {
-                    this.handleError(error, callback);
-                });
+                }, error => this.handleError(error, callback));
         } else {
             return this.http.put<Entity>(`${environment.apihost}/entity`, model)
                 .subscribe(data => {
                     const out = new Response(true);
                     out.obj = data;
                     callback(out);
-                }, error => {
-                    this.handleError(error, callback);
-                });
+                }, error => this.handleError(error, callback));
         }
     }
 
@@ -74,9 +68,7 @@ export class EntityService {
         return this.http.delete<Entity>(`${environment.apihost}/entity/${model.id}`)
             .subscribe(data => {
                 callback(new Response(true));
-            }, error => {
-                this.handleError(error, callback);
-            });
+            }, error => this.handleError(error, callback));
     }
 
     /**
