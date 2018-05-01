@@ -1,7 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home';
-import { DomainComponent } from './domain';
+import { DomainComponent, DomainDetailComponent } from './domain';
 import { EntityComponent } from './entity';
 import { EntityTypeComponent } from './entitytype';
 
@@ -12,6 +12,9 @@ const appRoutes: Routes = [
     }, {
         path: 'domain',
         component: DomainComponent
+    }, {
+        path: 'domain/:id',
+        component: DomainDetailComponent
     }, {
         path: 'entity',
         component: EntityComponent

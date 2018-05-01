@@ -11,7 +11,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 
 import { HomeComponent } from './home';
-import { DomainComponent, DomainService } from './domain';
+import { DomainComponent, DomainDetailComponent, DomainService } from './domain';
 import { EntityComponent, EntityService } from './entity';
 import { EntityTypeComponent, EntityTypeService } from './entitytype';
 
@@ -20,6 +20,7 @@ import { EntityTypeComponent, EntityTypeService } from './entitytype';
     AppComponent,
     HomeComponent,
     DomainComponent,
+    DomainDetailComponent,
     EntityComponent,
     EntityTypeComponent
   ],

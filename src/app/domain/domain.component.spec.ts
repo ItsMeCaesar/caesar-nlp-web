@@ -160,7 +160,6 @@ describe('DomainComponent', () => {
                 ]
             }
         ]);
-        httpMock.verify();
 
         expect(req.request.method).toBe('GET');
         expect(component.list.length).toBe(1);

@@ -7,6 +7,8 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class DomainService {
 
+    public list = new Array<Domain>();
+
     /**
      * Constructor
      *
@@ -26,13 +28,22 @@ export class DomainService {
         return this.http.get<Array<Domain>>(`${environment.apihost}/domain/list`)
             .subscribe(data => {
                 const out = new Response(true);
-                out.list = data;
+                this.list = data;
                 callback(out);
             }, error => {
                 const out = new Response(false);
                 out.msg = error.msg;
                 callback(out);
             });
+    }
+
+    /**
+     * Retrieve the domains by its ID
+     *
+     * @param id
+     */
+    getByID(id: string): Domain {
+        return this.list.find(d => d.id === id);
     }
 
 }

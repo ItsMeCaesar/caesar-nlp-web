@@ -1,0 +1,47 @@
+<div class="p-3">
+
+  <h2>Domain</h2>
+  <hr>
+
+  <form #f="ngForm" (ngSubmit)="persist(f)">
+    <div class="row">
+      <div class="form-group col-9">
+        <label for="domain_input_name">Name</label>
+        <input id="domain_input_name" type="text" class="form-control" placeholder="Enter name" autocomplete="off" [(ngModel)]="model.name"
+          name="name" ngModel required>
+      </div>
+      <div class="form-group col-3">
+        <label for="domain_select_locale">Locale</label>
+        <select id="domain_select_locale" class="custom-select" [(ngModel)]="model.locale" name="locale" required>
+          <option *ngFor="let l of app.locales" [ngValue]="l.code">{{l.description}}</option>
+        </select>
+      </div>
+    </div>
+
+
+
+    <div class="container-fluid">
+      <div class="d-flex flex-wrap">
+        <div class="card bg-light mr-3 mb-3" *ngFor="let d of list" style="width: 14em">
+          <div class="card-header">
+            <div class="d-flex justify-content-between">
+              {{ d.name }}
+              <button type="button" class="close" aria-label="Edit" (click)="open(d)">
+                <fa name="pencil"></fa>
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-text">{{ e.value }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between w-100">
+      <button type="button" class="btn btn-outline-danger" (click)="delete()" [disabled]="model.id ===''">Remove</button>
+      <button type="submit" class="btn btn-outline-primary" [disabled]="!f.form.valid">Save</button>
+    </div>
+  </form>
+
+</div>
