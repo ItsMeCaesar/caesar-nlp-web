@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { EntityType, Response } from '../models';
 import { environment } from '../../environments/environment';
 
+import { AppService } from '../app.service';
+
 @Injectable()
 export class EntityTypeService {
 
@@ -13,9 +15,11 @@ export class EntityTypeService {
      * Constructor
      *
      * @param http
+     * @param app
      */
     constructor(
-        private http: HttpClient
+        private http: HttpClient,
+        private app: AppService
     ) { }
 
     /**
@@ -30,7 +34,7 @@ export class EntityTypeService {
                 this.list = data;
                 this.list = this.list.sort((left, right) => left.name.localeCompare(right.name));
                 callback(new Response(true));
-            }, error => this.handleError(error, callback));
+            }, error => this.app.handleError(error, callback));
     }
 
     /**
@@ -46,7 +50,7 @@ export class EntityTypeService {
                 this.list.push(data);
                 this.list = this.list.sort((left, right) => left.name.localeCompare(right.name));
                 callback(new Response(true));
-            }, error => this.handleError(error, callback));
+            }, error => this.app.handleError(error, callback));
     }
 
     /**
@@ -61,20 +65,8 @@ export class EntityTypeService {
                 this.list.splice(this.list.findIndex(obj => obj.id === et.id), 1);
                 this.list = this.list.sort((left, right) => left.name.localeCompare(right.name));
                 callback(new Response(true));
-            }, error => this.handleError(error, callback));
+            }, error => this.app.handleError(error, callback));
     }
 
-
-    /**
-     * Handle API errors
-     *
-     * @param error
-     * @param callback
-     */
-    private handleError(error: any, callback: Function) {
-        const out = new Response(false);
-        out.msg = error.msg;
-        callback(out);
-    }
 
 }
