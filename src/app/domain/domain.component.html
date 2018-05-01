@@ -16,7 +16,7 @@
           <div class="card-header">
             <div class="d-flex justify-content-between">
               {{ d.name }}
-              <button type="button" class="close" aria-label="Edit" (click)="open(d)">
+              <button type="button" class="close" aria-label="Edit" [routerLink]="['/domain/' + d.id]">
                 <fa name="pencil"></fa>
               </button>
             </div>
