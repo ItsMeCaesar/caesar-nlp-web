@@ -105,4 +105,41 @@ describe('EntityComponent', () => {
         expect(component.list[1].type).toBe('person');
 
     }));
+
+
+    it('should update on filter change', async(() => {
+
+        const filter = new Entity('', 'pt_BR', '', 'person');
+        component.filter = filter;
+
+        component.onFilterChange();
+
+        const url = `${environment.apihost}/entity/list?locale=${filter.locale}&type=${filter.type}&value=${filter.value}`;
+
+        const req = httpMock.expectOne(url, 'call to api');
+        req.flush([{
+            id: '1',
+            value: 'michel temer',
+            locale: 'pt_BR',
+            type: 'person'
+        }, {
+            id: '2',
+            value: 'carmen lúcia',
+            locale: 'pt_BR',
+            type: 'person'
+        }]);
+        httpMock.verify();
+
+        expect(req.request.method).toBe('GET');
+        expect(component.list.length).toBe(2);
+
+        expect(component.list[0].locale).toBe('pt_BR');
+        expect(component.list[0].value).toBe('michel temer');
+        expect(component.list[0].type).toBe('person');
+
+        expect(component.list[1].locale).toBe('pt_BR');
+        expect(component.list[1].value).toBe('carmen lúcia');
+        expect(component.list[1].type).toBe('person');
+
+    }));
 });
