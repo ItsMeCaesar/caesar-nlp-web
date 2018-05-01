@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Alert, Locale } from './models';
+import { Alert, Locale, Response } from './models';
 
 @Injectable()
 export class AppService {
@@ -23,5 +23,17 @@ export class AppService {
         setTimeout(() => {
             this.alert = new Alert(false, '', '');
         }, 3000);
+    }
+
+   /**
+    * Handle API errors
+    *
+    * @param error
+    * @param callback
+    */
+    public handleError(error: any, callback: Function) {
+        const out = new Response(false);
+        out.msg = error.msg;
+        callback(out);
     }
 }
