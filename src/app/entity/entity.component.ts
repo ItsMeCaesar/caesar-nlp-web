@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
-import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { EntityService } from './entity.service';
 import { EntityTypeService } from '../entitytype';
@@ -70,17 +70,6 @@ export class EntityComponent implements OnInit {
             this.model = Object.assign({}, entity);
         }
         this.modal = this.modalService.open(content);
-        this.modal.result.then(result => {
-            console.log(`Closed with: ${result}`);
-        }, reason => {
-            if (reason === ModalDismissReasons.ESC) {
-                console.log('Dismissed by pressing ESC');
-            } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-                console.log('Dismissed by clicking on a backdrop');
-            } else {
-                console.log(`Dismissed with: ${reason}`);
-            }
-        });
     }
 
     /**
