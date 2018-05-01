@@ -65,4 +65,21 @@ export class DomainDetailComponent implements OnInit {
         }
     }
 
+    /**
+     * Delete a domain
+     */
+    delete() {
+        this.app.loading = true;
+        // this.service.delete(this.model, (response: Response) => {
+        //     this.app.loading = false;
+        //     if (response.ok) {
+        //         this.list.splice(this.list.findIndex(e => e.id === this.model.id), 1);
+        //         this.modal.close();
+        //         this.callAPI();
+        //     } else {
+
+        //     }
+        // });
+    }
+
 }
