@@ -25,7 +25,7 @@
     <div class="form-group col-2">
       <label for="entity_filter_select_locale">Locale</label>
       <select id="entity_filter_select_locale" class="custom-select" [(ngModel)]="filter.locale" (ngModelChange)="onFilterChange()">
-        <option *ngFor="let l of app.locales" [ngValue]="l.code">{{l.description}}</option>
+        <option *ngFor="let l of localePipe.locales" [ngValue]="l.code">{{l.description}}</option>
       </select>
     </div>
 
@@ -75,7 +75,7 @@
       <div class="form-group row">
         <label for="entity_select_locale">Locale</label>
         <select id="entity_select_locale" class="custom-select" [(ngModel)]="model.locale" name="locale" required>
-          <option *ngFor="let l of app.locales" [ngValue]="l.code">{{l.description}}</option>
+          <option *ngFor="let l of localePipe.locales" [ngValue]="l.code">{{l.description}}</option>
         </select>
       </div>
       <div class="form-group row">

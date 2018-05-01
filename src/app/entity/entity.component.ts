@@ -6,6 +6,8 @@ import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-boo
 import { EntityService } from './entity.service';
 import { EntityTypeService } from '../entitytype';
 
+import { LocalePipe } from '../pipes';
+
 import { AppService } from '../app.service';
 import { Entity, Locale, Response } from '../models';
 
@@ -19,6 +21,8 @@ export class EntityComponent implements OnInit {
 
     public model = new Entity('', 'pt_BR', '', '');
     public filter = new Entity('', 'pt_BR', '', '');
+
+    private localePipe = new LocalePipe();
 
     private modal: NgbModalRef;
 

@@ -11,6 +11,8 @@ import { EntityService } from './entity.service';
 import { EntityTypeComponent, EntityTypeService } from '../entitytype';
 import { AppService } from '../app.service';
 
+import { LocalePipe } from '../pipes';
+
 import { Entity } from '../models';
 
 import { environment } from '../../environments/environment';
@@ -33,7 +35,8 @@ describe('EntityComponent', () => {
             ],
             declarations: [
                 EntityComponent,
-                EntityTypeComponent
+                EntityTypeComponent,
+                LocalePipe
             ],
             providers: [
                 AppService,

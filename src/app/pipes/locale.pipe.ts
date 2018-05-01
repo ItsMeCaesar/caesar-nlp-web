@@ -5,7 +5,7 @@ import { Locale } from '../models';
 @Pipe({ name: 'locale' })
 export class LocalePipe implements PipeTransform {
 
-  private locales = [
+  public locales = [
     new Locale('pt_BR', 'Português (BR)'),
     new Locale('en_US', 'English (US)')
   ];
