@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
 
 import { DomainService } from './domain.service';
 import { AppService } from '../app.service';
 
-import { Domain, Response } from '../models';
+import { Domain, Intent, Response } from '../models';
 
 @Component({
     templateUrl: './domain-detail.component.html',
@@ -20,11 +21,13 @@ export class DomainDetailComponent implements OnInit {
      * @param service
      * @param app
      * @param route
+     * @param router
      */
     constructor(
         private service: DomainService,
         public app: AppService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private router: Router
     ) { }
 
     /**
@@ -39,6 +42,27 @@ export class DomainDetailComponent implements OnInit {
                 this.model = this.service.getByID(id);
             }
         });
+    }
+
+    /**
+     * Add a new entity or update an existing one
+     */
+    persist(f: NgForm) {
+        if (f.valid) {
+            this.app.loading = true;
+            // TODO -> remove it
+            this.model.intents.push(new Intent('temp', '', []));
+            this.service.persist(this.model, (response: Response) => {
+                this.app.loading = false;
+                if (response.ok) {
+                    this.router.navigate(['domain']);
+                } else {
+
+                }
+            });
+        } else {
+            console.log(f + ' is not valid');
+        }
     }
 
 }

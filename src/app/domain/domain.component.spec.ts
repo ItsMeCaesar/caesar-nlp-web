@@ -1,9 +1,15 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
+
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 import { DomainComponent } from './domain.component';
 import { DomainService } from './domain.service';
+import { AppService } from '../app.service';
+
+import { LocalePipe } from '../pipes';
 
 import { environment } from '../../environments/environment';
 
@@ -18,13 +24,17 @@ describe('DomainComponent', () => {
         TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
-                HttpClientModule
+                HttpClientModule,
+                RouterTestingModule,
+                AngularFontAwesomeModule
             ],
             declarations: [
-                DomainComponent
+                DomainComponent,
+                LocalePipe
             ],
             providers: [
-                DomainService
+                DomainService,
+                AppService
             ]
         }).compileComponents();
 
@@ -162,13 +172,13 @@ describe('DomainComponent', () => {
         ]);
 
         expect(req.request.method).toBe('GET');
-        expect(component.list.length).toBe(1);
+        expect(component.service.list.length).toBe(1);
 
-        expect(component.list[0].locale).toBe('pt_BR');
-        expect(component.list[0].name).toBe('Global');
-        expect(component.list[0].intents.length).toBe(15);
-        expect(component.list[0].intents[14].entities.length).toBe(1);
-        expect(component.list[0].entitySynonyms.length).toBe(1);
+        expect(component.service.list[0].locale).toBe('pt_BR');
+        expect(component.service.list[0].name).toBe('Global');
+        expect(component.service.list[0].intents.length).toBe(15);
+        expect(component.service.list[0].intents[14].entities.length).toBe(1);
+        expect(component.service.list[0].entitySynonyms.length).toBe(1);
 
     }));
 });

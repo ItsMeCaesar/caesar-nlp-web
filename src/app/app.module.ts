@@ -15,6 +15,8 @@ import { DomainComponent, DomainDetailComponent, DomainService } from './domain'
 import { EntityComponent, EntityService } from './entity';
 import { EntityTypeComponent, EntityTypeService } from './entitytype';
 
+import { LocalePipe } from './pipes';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +24,8 @@ import { EntityTypeComponent, EntityTypeService } from './entitytype';
     DomainComponent,
     DomainDetailComponent,
     EntityComponent,
-    EntityTypeComponent
+    EntityTypeComponent,
+    LocalePipe
   ],
   imports: [
     BrowserModule,

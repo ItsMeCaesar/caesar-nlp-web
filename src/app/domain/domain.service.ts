@@ -30,11 +30,7 @@ export class DomainService {
                 const out = new Response(true);
                 this.list = data;
                 callback(out);
-            }, error => {
-                const out = new Response(false);
-                out.msg = error.msg;
-                callback(out);
-            });
+            }, error => this.handleError(error, callback));
     }
 
     /**
@@ -44,6 +40,44 @@ export class DomainService {
      */
     getByID(id: string): Domain {
         return this.list.find(d => d.id === id);
+    }
+
+    /**
+     * Add a new domain or update an existing one
+     *
+     * @param model
+     * @param callback
+     */
+    persist(model: Domain, callback: Function) {
+
+        if (model.id === '') {
+            return this.http.post<Domain>(`${environment.apihost}/domain`, model)
+                .subscribe(data => {
+                    const out = new Response(true);
+                    out.obj = data;
+                    callback(out);
+                }, error => this.handleError(error, callback));
+        } else {
+            return this.http.put<Domain>(`${environment.apihost}/domain`, model)
+                .subscribe(data => {
+                    const out = new Response(true);
+                    out.obj = data;
+                    callback(out);
+                }, error => this.handleError(error, callback));
+        }
+    }
+
+
+    /**
+     * Handle API errors
+     *
+     * @param error
+     * @param callback
+     */
+    private handleError(error: any, callback: Function) {
+        const out = new Response(false);
+        out.msg = error.msg;
+        callback(out);
     }
 
 }
