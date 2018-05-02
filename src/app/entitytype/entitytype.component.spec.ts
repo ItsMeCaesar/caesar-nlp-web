@@ -46,6 +46,13 @@ describe('EntityTypeComponent', () => {
         expect(component).toBeTruthy();
     }));
 
+    it('should render title in a h4 tag', async(() => {
+
+        fixture.detectChanges();
+        const compiled = fixture.debugElement.nativeElement;
+        expect(compiled.querySelector('h4').textContent).toContain('Entity Types');
+    }));
+
     it('should retrieve the initial types', () => {
 
         component.ngOnInit();
