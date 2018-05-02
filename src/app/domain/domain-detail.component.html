@@ -37,6 +37,11 @@
           <div class="card-body">
             <p class="card-text">{{ i.text }}</p>
           </div>
+          <div *ngIf="i.entities.length > 0" class="card-footer bg-transparent d-flex">
+            <span *ngFor="let e of i.entities" class="badge badge-pill">
+              {{ e.value }}
+            </span>
+          </div>
         </div>
       </div>
     </div>

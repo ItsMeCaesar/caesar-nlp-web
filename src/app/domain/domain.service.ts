@@ -33,6 +33,7 @@ export class DomainService {
             .subscribe(data => {
                 const out = new Response(true);
                 this.list = data;
+                console.log(data);
                 callback(out);
             }, error => this.app.handleError(error, callback));
     }
