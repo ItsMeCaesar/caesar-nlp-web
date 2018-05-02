@@ -2,7 +2,7 @@
 
   <div class="d-flex justify-content-between">
     <h4>Domain</h4>
-    <button type="button" class="btn btn-outline-primary">
+    <button type="button" class="btn btn-outline-primary" (click)="open(intentmodal, -1)">
       Add Intent
     </button>
   </div>
@@ -25,11 +25,11 @@
 
     <div class="container-fluid mt-3 pre-scrollable">
       <div class="d-flex flex-column">
-        <div class="card bg-light mb-3 w-100" *ngFor="let i of model.intents">
+        <div class="card bg-light mb-3 w-100" *ngFor="let i of model.intents; let ind = index">
           <div class="card-header">
             <div class="d-flex justify-content-between">
               {{ i.intent }}
-              <button type="button" class="close" aria-label="Edit" (click)="open(d)">
+              <button type="button" class="close" aria-label="Edit" (click)="open(intentmodal, ind)">
                 <fa name="pencil"></fa>
               </button>
             </div>
@@ -50,35 +50,28 @@
 
 <ng-template #intentmodal let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title">{{ model.id === '' ? 'New Entity' : 'Entity' }}</h4>
+    <h4 class="modal-title">{{ intent.id === '' ? 'New Intent' : 'Intent' }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <form #f="ngForm" class="p-4" (ngSubmit)="persist(f)">
+    <form #f="ngForm" class="p-4" (ngSubmit)="saveIntent(f)">
       <div class="form-group row">
-        <label for="entity_select_type">Type</label>
-        <select id="entity_select_type" class="custom-select" [(ngModel)]="model.type" name="type" required>
-          <option *ngFor="let t of typeService.list" [ngValue]="t.name">{{t.name}}</option>
-        </select>
+        <label for="intent_input_id">Identifier</label>
+        <input id="intent_input_id" type="text" class="form-control" placeholder="Enter identifier" autocomplete="off" [(ngModel)]="intent.intent"
+          name="intent" (blur)="formatIntent()" ngModel required>
       </div>
       <div class="form-group row">
-        <label for="entity_select_locale">Locale</label>
-        <select id="entity_select_locale" class="custom-select" [(ngModel)]="model.locale" name="locale" required>
-          <option *ngFor="let l of localePipe.locales" [ngValue]="l.code">{{l.description}}</option>
-        </select>
-      </div>
-      <div class="form-group row">
-        <label for="entity_input_value">Value</label>
-        <input id="entity_input_value" type="text" class="form-control" placeholder="Enter value" autocomplete="off" [(ngModel)]="model.value"
-          name="value" ngModel required>
+        <label for="intent_input_text">Text</label>
+        <input id="intent_input_text" type="text" class="form-control" placeholder="Enter the text" autocomplete="off" [(ngModel)]="intent.text"
+          name="text" ngModel required>
       </div>
     </form>
   </div>
   <div class="modal-footer">
     <div class="d-flex justify-content-between w-100">
-      <button type="submit" class="btn btn-outline-danger" (click)="delete()" [disabled]="model.id ===''">Remove</button>
+      <button type="submit" class="btn btn-outline-danger" (click)="deleteIntent()" [disabled]="index === -1">Remove</button>
       <button type="submit" class="btn btn-primary" (click)="f.ngSubmit.emit()" [disabled]="!f.form.valid">Save</button>
     </div>
   </div>

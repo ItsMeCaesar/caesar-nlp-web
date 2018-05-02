@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+
 import { DomainService } from './domain.service';
 import { AppService } from '../app.service';
 
@@ -14,6 +16,9 @@ import { Domain, Intent, Response } from '../models';
 export class DomainDetailComponent implements OnInit {
 
     public model: Domain;
+    public intent: Intent;
+    private index: number;
+    private modal: NgbModalRef;
 
     /**
      * Constructor
@@ -22,12 +27,14 @@ export class DomainDetailComponent implements OnInit {
      * @param app
      * @param route
      * @param router
+     * @param modalService
      */
     constructor(
         private service: DomainService,
         public app: AppService,
         private route: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        private modalService: NgbModal,
     ) { }
 
     /**
@@ -41,11 +48,23 @@ export class DomainDetailComponent implements OnInit {
             } else {
                 this.model = this.service.getByID(id);
             }
-            // TODO -> remove it
-            this.model.intents.push(new Intent('temp', 'saasas', []));
-            this.model.intents.push(new Intent('temp2', 'saasas2', []));
-            this.model.intents.push(new Intent('temp3', 'saasas3', []));
         });
+    }
+
+    /**
+     * Opens the modal
+     *
+     * @param content
+     * @param i
+     */
+    open(content, index: number) {
+        this.index = index;
+        if (index === -1) {
+            this.intent = new Intent('', '', []);
+        } else {
+            this.intent = Object.assign({}, this.model.intents[index]);
+        }
+        this.modal = this.modalService.open(content);
     }
 
     /**
@@ -81,6 +100,39 @@ export class DomainDetailComponent implements OnInit {
 
             }
         });
+    }
+
+    /**
+     * Delete an intent
+     */
+    deleteIntent() {
+        this.model.intents.splice(this.index, 1);
+        this.modal.close();
+    }
+
+    /**
+     * Transform the intent identifier to the standard format
+     */
+    formatIntent() {
+        this.intent.intent = this.intent.intent.trim().toLowerCase();
+        this.intent.intent = this.intent.intent.replace(/\s+/g, '_');
+        this.intent.intent = this.intent.intent.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    }
+
+    /**
+     * Save an intent to the list
+     * @param f
+     */
+    saveIntent(f: NgForm) {
+        this.formatIntent();
+        this.intent.text = this.intent.text.toLowerCase();
+        const intentcp = Object.assign({}, this.intent);
+        if (this.index === -1) {
+            this.model.intents.push(intentcp);
+        } else {
+            this.model.intents[this.index] = intentcp;
+        }
+        this.modal.close();
     }
 
 }
