@@ -41,6 +41,10 @@ export class DomainDetailComponent implements OnInit {
             } else {
                 this.model = this.service.getByID(id);
             }
+            // TODO -> remove it
+            this.model.intents.push(new Intent('temp', 'saasas', []));
+            this.model.intents.push(new Intent('temp2', 'saasas2', []));
+            this.model.intents.push(new Intent('temp3', 'saasas3', []));
         });
     }
 
@@ -50,8 +54,6 @@ export class DomainDetailComponent implements OnInit {
     persist(f: NgForm) {
         if (f.valid) {
             this.app.loading = true;
-            // TODO -> remove it
-            this.model.intents.push(new Intent('temp', '', []));
             this.service.persist(this.model, (response: Response) => {
                 this.app.loading = false;
                 if (response.ok) {
