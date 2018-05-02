@@ -1,7 +1,7 @@
 <div class="container-fluid p-3">
 
   <div class="d-flex justify-content-between">
-    <h2>Entities</h2>
+    <h4>Entities</h4>
     <button type="submit" class="btn btn-outline-primary" (click)="open(entitymodal, null)">
       Add
     </button>
@@ -88,7 +88,7 @@
   <div class="modal-footer">
     <div class="d-flex justify-content-between w-100">
       <button type="submit" class="btn btn-outline-danger" (click)="delete()" [disabled]="model.id ===''">Remove</button>
-      <button type="submit" class="btn btn-outline-primary" (click)="f.ngSubmit.emit()" [disabled]="!f.form.valid">Save</button>
+      <button type="submit" class="btn btn-primary" (click)="f.ngSubmit.emit()" [disabled]="!f.form.valid">Save</button>
     </div>
   </div>
 </ng-template>
