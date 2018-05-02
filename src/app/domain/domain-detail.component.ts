@@ -115,8 +115,12 @@ export class DomainDetailComponent implements OnInit {
      */
     formatIntent() {
         this.intent.intent = this.intent.intent.trim().toLowerCase();
-        this.intent.intent = this.intent.intent.replace(/\s+/g, '_');
         this.intent.intent = this.intent.intent.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        this.intent.intent = this.intent.intent.split(' ').filter(str => {
+            const word = str.match(/(\w+)/);
+            return word && word[0].length > 3;
+        }).join(' ');
+        this.intent.intent = this.intent.intent.replace(/\s+/g, '_');
     }
 
     /**
