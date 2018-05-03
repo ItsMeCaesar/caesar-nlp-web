@@ -20,7 +20,7 @@ describe('EntityTypeComponent', () => {
     let fixture: ComponentFixture<EntityTypeComponent>;
     let component: EntityTypeComponent;
 
-    beforeEach(async(() => {
+    beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule,
@@ -40,18 +40,18 @@ describe('EntityTypeComponent', () => {
         httpMock = TestBed.get(HttpTestingController);
         fixture = TestBed.createComponent(EntityTypeComponent);
         component = fixture.debugElement.componentInstance;
-    }));
+    });
 
-    it('should create the entity type', async(() => {
+    it('should create the entity type', () => {
         expect(component).toBeTruthy();
-    }));
+    });
 
-    it('should render title in a h4 tag', async(() => {
+    it('should render title in a h4 tag', () => {
 
         fixture.detectChanges();
         const compiled = fixture.debugElement.nativeElement;
         expect(compiled.querySelector('h4').textContent).toContain('Entity Types');
-    }));
+    });
 
     it('should retrieve the initial types', () => {
 
@@ -98,7 +98,8 @@ describe('EntityTypeComponent', () => {
         const req1 = httpMock.expectOne({ method: 'POST', url: `${environment.apihost}/entitytype` });
         req1.flush([{
             id: '1',
-            name: 'date'
+            name: 'date',
+            color: '#FF0000'
         }]);
 
         expect(req1.request.method).toBe('POST');
@@ -112,7 +113,7 @@ describe('EntityTypeComponent', () => {
         expect(initialButtons).toBeLessThan(newButtons);
 
         /* DELETE */
-        const et = new EntityType('1', 'date');
+        const et = new EntityType('1', 'date', '#FF0000');
         component.delete(et);
 
         const req2 = httpMock.expectOne({ method: 'DELETE', url: `${environment.apihost}/entitytype/${et.id}` });
@@ -123,5 +124,46 @@ describe('EntityTypeComponent', () => {
         expect(deleteLength).toBe(initialLength);
 
     });
+
+    it('should attribtue the next color to the entity type', async(() => {
+
+        const colors = [
+            '#331832',
+            '#694D75',
+            '#8B9EB7',
+            '#1B5299',
+            '#F1ECCE',
+            '#50514F',
+            '#F25F5C',
+            '#FFE066',
+            '#247BA0',
+            '#70C1B3'
+        ];
+
+        for (let i = 0; i < colors.length; i++) {
+
+            component.open('modal');
+            component.value = 'date';
+            component.add();
+            const req = httpMock.expectOne({ method: 'POST', url: `${environment.apihost}/entitytype` });
+            req.flush([{
+                id: i + '',
+                name: 'date',
+                color: colors[i]
+            }]);
+            expect(req.request.method).toBe('POST');
+
+            httpMock.verify();
+        }
+
+        expect(component.service.list.length).toBe(colors.length);
+
+        for (let i = 0; i < component.service.list.length; i++) {
+
+            const et: EntityType = component.service.list[i];
+            expect(JSON.stringify(et)).toContain(colors[i]);
+        }
+
+    }));
 
 });
