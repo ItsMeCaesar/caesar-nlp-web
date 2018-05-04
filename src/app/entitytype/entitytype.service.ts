@@ -14,13 +14,13 @@ export class EntityTypeService {
         '#331832',
         '#694D75',
         '#8B9EB7',
-        '#1B5299',
+        '#70C1B3',
         '#F1ECCE',
         '#50514F',
         '#F25F5C',
         '#FFE066',
         '#247BA0',
-        '#70C1B3'
+        '#1B5299'
     ];
 
     /**

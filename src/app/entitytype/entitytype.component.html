@@ -12,7 +12,10 @@
   <ul class="list-group mt-3">
     <li class="list-group-item" *ngFor="let et of service.list">
       <div class="d-flex justify-content-between align-items-center">
-        {{et.name}}
+        <div>
+          <span class="rounded h-100" [style.background-color]="et.color">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          {{et.name}}
+        </div>
         <button type="button" class="close" aria-label="Close" (click)="delete(et)">
           <span aria-hidden="true">&times;</span>
         </button>
