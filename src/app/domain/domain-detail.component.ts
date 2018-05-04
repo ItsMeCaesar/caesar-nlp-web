@@ -6,8 +6,9 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { DomainService } from './domain.service';
 import { AppService } from '../app.service';
+import { EntityTypeService } from '../entitytype';
 
-import { Domain, Intent, Response } from '../models';
+import { Domain, Intent, Entity, Response } from '../models';
 
 @Component({
     templateUrl: './domain-detail.component.html',
@@ -28,6 +29,7 @@ export class DomainDetailComponent implements OnInit {
      * @param route
      * @param router
      * @param modalService
+     * @param entityTypeService
      */
     constructor(
         private service: DomainService,
@@ -35,6 +37,7 @@ export class DomainDetailComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private modalService: NgbModal,
+        private entityTypeService: EntityTypeService
     ) { }
 
     /**
@@ -137,6 +140,19 @@ export class DomainDetailComponent implements OnInit {
             this.model.intents[this.index] = intentcp;
         }
         this.modal.close();
+    }
+
+    /**
+     * Retrieve the entity type background color
+     *
+     * @param e
+     */
+    getEntityTypeColor(e: Entity): string {
+        const entity = this.entityTypeService.list.find(et => et.name === e.type);
+        if (entity) {
+            return entity.color;
+        }
+        return '#000000';
     }
 
 }

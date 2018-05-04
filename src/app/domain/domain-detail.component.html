@@ -36,7 +36,7 @@
           </div>
           <div class="card-body d-flex flex-column">
             {{ i.text }}
-            <span *ngFor="let e of i.entities" class="badge badge-success">
+            <span *ngFor="let e of i.entities" class="badge" [style.background-color]="getEntityTypeColor(e)" [style.color]="'white'">
                 {{ e.type }}
             </span>
           </div>
