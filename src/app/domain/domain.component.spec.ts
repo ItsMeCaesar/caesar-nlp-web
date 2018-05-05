@@ -8,6 +8,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { DomainComponent } from './domain.component';
 import { DomainService } from './domain.service';
 import { AppService } from '../app.service';
+import { EntityTypeService } from '../entitytype';
 
 import { LocalePipe } from '../pipes';
 
@@ -34,6 +35,7 @@ describe('DomainComponent', () => {
             ],
             providers: [
                 DomainService,
+                EntityTypeService,
                 AppService
             ]
         }).compileComponents();

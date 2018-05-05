@@ -9,6 +9,7 @@ import { AppService } from '../app.service';
 import { EntityTypeService } from '../entitytype';
 
 import { Domain, Intent, Entity, Response } from '../models';
+import { IntentView, IntentSectionView, EntityView } from './modelsviews';
 
 @Component({
     templateUrl: './domain-detail.component.html',
@@ -20,6 +21,7 @@ export class DomainDetailComponent implements OnInit {
     public intent: Intent;
     private index: number;
     private modal: NgbModalRef;
+    private intents: Array<IntentView>;
 
     /**
      * Constructor
@@ -50,6 +52,7 @@ export class DomainDetailComponent implements OnInit {
                 this.model = new Domain('', '', '', [], []);
             } else {
                 this.model = this.service.getByID(id);
+                this.turnModelsIntoViews();
             }
         });
     }
@@ -153,6 +156,26 @@ export class DomainDetailComponent implements OnInit {
             return entity.color;
         }
         return '#000000';
+    }
+
+    /**
+     * Process the models in order to show user friendly views
+     */
+    turnModelsIntoViews() {
+        this.intents = new Array<IntentView>();
+
+        for (let i = 0, ilen = this.model.intents.length; i < ilen; i++) {
+            const intent = this.model.intents[i];
+
+            for (let j = 0, elen = intent.entities.length; j < elen; j++) {
+                const entity = intent.entities[j];
+
+
+
+
+            }
+
+        }
     }
 
 }
