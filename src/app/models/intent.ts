@@ -1,10 +1,10 @@
-import { Entity } from './entity';
+import { IntentEntity } from './intententity';
 
 export class Intent {
 
     text: string;
     intent: string;
-    entities: Array<Entity>;
+    entities: Array<IntentEntity>;
 
     /**
      * Constructor
@@ -16,7 +16,7 @@ export class Intent {
     constructor(
         text: string,
         intent: string,
-        entities: Array<Entity>
+        entities: Array<IntentEntity>
     ) {
         this.text = text;
         this.intent = intent;
