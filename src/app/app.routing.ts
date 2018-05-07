@@ -21,8 +21,7 @@ const appRoutes: Routes = [
     }, {
         path: 'entitytype',
         component: EntityTypeComponent
-    },
-    { path: '**', redirectTo: '' }
+    }
 ];
 
 export const AppRoutingModule = RouterModule.forRoot(appRoutes);
