@@ -31,13 +31,13 @@ export class DomainComponent implements OnInit {
     ngOnInit() {
         this.service.get((response1: Response) => {
             if (response1.ok) {
-
-            } else {
                 this.entityTypeService.get((response2: Response) => {
                     if (!response2.ok) {
 
                     }
                 });
+            } else {
+
             }
         });
     }

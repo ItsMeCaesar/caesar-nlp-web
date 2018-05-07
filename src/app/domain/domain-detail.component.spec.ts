@@ -68,9 +68,9 @@ describe('DomainDetailComponent', () => {
         component.turnModelsIntoViews();
 
         expect(component.intents.length).toBe(component.model.intents.length);
-        expect(component.intents[0].sections[0].text).toBe('eu ouvi sábias palavras do ');
+        expect(component.intents[0].sections[0].text).toBe('eu ouvi sábias palavras do '.replace(/ /g, '&nbsp;'));
         expect(component.intents[0].sections[0].entities.length).toBe(0);
-        expect(component.intents[0].sections[1].text).toBe('martin lutherking');
+        expect(component.intents[0].sections[1].text).toBe('martin lutherking'.replace(/ /g, '&nbsp;'));
         expect(component.intents[0].sections[1].entities.length).toBe(1);
         expect(component.intents[0].sections[1].entities[0].type).toBe('person');
         expect(component.intents[0].sections[1].entities[0].color).toBe('#FF0000');
@@ -90,12 +90,18 @@ describe('DomainDetailComponent', () => {
         component.turnModelsIntoViews();
 
         expect(component.intents.length).toBe(component.model.intents.length);
-        expect(component.intents[0].sections[0].text).toBe('show me a ');
+        expect(component.intents[0].sections[0].text).toBe('show me a '.replace(/ /g, '&nbsp;'));
         expect(component.intents[0].sections[0].entities.length).toBe(0);
         expect(component.intents[0].sections[1].text).toBe('mexican');
         expect(component.intents[0].sections[1].entities.length).toBe(1);
         expect(component.intents[0].sections[1].entities[0].type).toBe('cuisine');
         expect(component.intents[0].sections[1].entities[0].color).toBe('#0000FF');
+        expect(component.intents[0].sections[2].text).toBe(' place in the '.replace(/ /g, '&nbsp;'));
+        expect(component.intents[0].sections[2].entities.length).toBe(0);
+        expect(component.intents[0].sections[3].text).toBe('centre');
+        expect(component.intents[0].sections[3].entities.length).toBe(1);
+        expect(component.intents[0].sections[3].entities[0].type).toBe('location');
+        expect(component.intents[0].sections[3].entities[0].color).toBe('#00FF00');
     });
 
 

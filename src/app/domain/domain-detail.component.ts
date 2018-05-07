@@ -186,7 +186,7 @@ export class DomainDetailComponent implements OnInit {
                     } else {
                         index = fulltext.length;
                     }
-                    const text = fulltext.substring(start, index);
+                    const text = fulltext.substring(start, index).replace(/ /g, '&nbsp;');
                     sections.push(new IntentSectionView(text, []));
                 } else {
 
@@ -199,10 +199,10 @@ export class DomainDetailComponent implements OnInit {
                         }
                     }
                     const firstEntity = entities1[0];
-                    sections.push(new IntentSectionView(firstEntity.value, entities));
+                    const text = firstEntity.value.replace(/ /g, '&nbsp;');
+                    sections.push(new IntentSectionView(text, entities));
                     index = firstEntity.end;
                 }
-
             }
             this.intents.push(new IntentView(sections));
         }
