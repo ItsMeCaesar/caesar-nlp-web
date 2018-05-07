@@ -164,11 +164,11 @@ export class DomainDetailComponent implements OnInit {
     turnModelsIntoViews() {
         this.intents = new Array<IntentView>();
 
-        console.log('turnModelsIntoViews - intents [' + this.intents + '] modelintents [' + this.model.intents + ']');
-
         for (let i = 0, ilen = this.model.intents.length; i < ilen; i++) {
 
             const intent = this.model.intents[i];
+            intent.entities.sort((l, r) => (l.start > r.start) ? 1 : ((l.start < r.start) ? -1 : 0));
+
             const fulltext = intent.text;
             const sections = new Array<IntentSectionView>();
 
@@ -177,13 +177,16 @@ export class DomainDetailComponent implements OnInit {
 
                 const entities1 = intent.entities.filter(e => e.start === index);
                 const start = index;
+
                 if (entities1.length === 0) {
-                    const entities2 = intent.entities.sort((l, r) => l.start < r.start ? 1 : -1);
+                    const entities2 = intent.entities.filter(e => e.start > start);
+
                     if (entities2.length > 0) {
-                        index = intent.entities[0].start;
+                        index = entities2[0].start;
                     } else {
                         index = fulltext.length;
                     }
+
                     const text = fulltext.substring(start, index);
                     sections.push(new IntentSectionView(text, []));
                 } else {
@@ -191,18 +194,19 @@ export class DomainDetailComponent implements OnInit {
                     const entities = new Array<EntityView>();
                     for (let j = 0, elen = intent.entities.length; j < elen; j++) {
                         const entity = intent.entities[j];
-                        const color = this.entityTypeService.list.find(et => et.name === entity.type).color;
-                        entities.push(new EntityView(entity.type, color));
+                        if (entity.start === start) {
+                            const color = this.entityTypeService.list.find(et => et.name === entity.type).color;
+                            entities.push(new EntityView(entity.type, color));
+                        }
                     }
-                    const firstEntity = intent.entities[0];
-                    const text = fulltext.substring(firstEntity.start, firstEntity.end);
-                    sections.push(new IntentSectionView(text, entities));
-                    index = firstEntity.end + 1;
+                    const firstEntity = entities1[0];
+                    sections.push(new IntentSectionView(firstEntity.value, entities));
+                    index = firstEntity.end;
                 }
-            }
 
+            }
+            console.log('sections [' + sections + ']');
             this.intents.push(new IntentView(sections));
-            console.log('turnModelsIntoViews - intents [' + this.intents + ']');
         }
     }
 

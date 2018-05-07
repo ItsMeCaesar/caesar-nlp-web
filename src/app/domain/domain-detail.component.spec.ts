@@ -57,9 +57,9 @@ describe('DomainDetailComponent', () => {
     }));
 
 
-    it('should turn models into views', async(() => {
+    it('should turn models into views', () => {
 
-        component.model = new Domain('1', 'Test', 'pt_BR', [], []);
+        component.model = new Domain('1', 'Test 1', 'pt_BR', [], []);
         component.entityTypeService.list.push(new EntityType('1', 'person', '#FF0000'));
         const entity1 = new IntentEntity(27, 44, 'martin lutherking', 'person');
         const intent1 = new Intent('eu ouvi sábias palavras do martin lutherking', 'conheco_pessoa', [entity1]);
@@ -74,7 +74,29 @@ describe('DomainDetailComponent', () => {
         expect(component.intents[0].sections[1].entities.length).toBe(1);
         expect(component.intents[0].sections[1].entities[0].type).toBe('person');
         expect(component.intents[0].sections[1].entities[0].color).toBe('#FF0000');
-    }));
+
+        /******************* ********************/
+
+        component.intents = [];
+        component.model = new Domain('2', 'Test 2', 'en_US', [], []);
+        component.entityTypeService.list.push(new EntityType('2', 'location', '#00FF00'));
+        component.entityTypeService.list.push(new EntityType('3', 'cuisine', '#0000FF'));
+
+        const entity2 = new IntentEntity(31, 37, 'centre', 'location');
+        const entity3 = new IntentEntity(10, 17, 'mexican', 'cuisine');
+        const intent2 = new Intent('show me a mexican place in the centre', 'restaurant_search', [entity2, entity3]);
+        component.model.intents.push(intent2);
+
+        component.turnModelsIntoViews();
+
+        expect(component.intents.length).toBe(component.model.intents.length);
+        expect(component.intents[0].sections[0].text).toBe('show me a ');
+        expect(component.intents[0].sections[0].entities.length).toBe(0);
+        expect(component.intents[0].sections[1].text).toBe('mexican');
+        expect(component.intents[0].sections[1].entities.length).toBe(1);
+        expect(component.intents[0].sections[1].entities[0].type).toBe('cuisine');
+        expect(component.intents[0].sections[1].entities[0].color).toBe('#0000FF');
+    });
 
 
 });
