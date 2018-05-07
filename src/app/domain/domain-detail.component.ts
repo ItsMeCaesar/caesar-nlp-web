@@ -186,7 +186,6 @@ export class DomainDetailComponent implements OnInit {
                     } else {
                         index = fulltext.length;
                     }
-
                     const text = fulltext.substring(start, index);
                     sections.push(new IntentSectionView(text, []));
                 } else {
@@ -205,7 +204,6 @@ export class DomainDetailComponent implements OnInit {
                 }
 
             }
-            console.log('sections [' + sections + ']');
             this.intents.push(new IntentView(sections));
         }
     }
