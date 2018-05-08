@@ -33,7 +33,7 @@ export class AppService {
     */
     public handleError(error: any, callback: Function) {
         const out = new Response(false);
-        out.msg = error.msg;
+        out.msg = error.error.msg;
         callback(out);
     }
 }

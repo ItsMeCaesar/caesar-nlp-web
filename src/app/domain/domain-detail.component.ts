@@ -84,7 +84,7 @@ export class DomainDetailComponent implements OnInit {
                 if (response.ok) {
                     this.router.navigate(['domain']);
                 } else {
-
+                    this.app.showAlert('danger', response.msg);
                 }
             });
         } else {

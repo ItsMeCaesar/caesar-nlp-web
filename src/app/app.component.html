@@ -17,15 +17,17 @@
         <a class="nav-link" [routerLink]="['/entity']" href="#">Entities</a>
       </li>
       <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/entitytype']" href="#">Types</a>
-        </li>
+        <a class="nav-link" [routerLink]="['/entitytype']" href="#">Types</a>
+      </li>
     </ul>
     <div *ngIf="service.loading" class="my-2 my-lg-0">
-        <img alt="Loading" src="../assets/img/loading.gif">
+      <img alt="Loading" src="../assets/img/loading.gif">
     </div>
   </div>
 </nav>
 
-<ngb-alert *ngIf="service.alert.show" [type]="service.alert.type">{{service.alert.msg}}</ngb-alert>
+<div class="container-fluid mt-3">
+  <ngb-alert *ngIf="service.alert.show" [type]="service.alert.type">{{service.alert.msg}}</ngb-alert>
+</div>
 
 <router-outlet></router-outlet>

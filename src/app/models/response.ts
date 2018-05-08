@@ -14,7 +14,6 @@ export class Response {
         this.ok = ok;
     }
 
-
      /**
      * Print info
      */
