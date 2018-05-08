@@ -63,14 +63,14 @@
   <div class="modal-body">
     <form #f="ngForm" class="p-4" (ngSubmit)="saveIntent(f)">
       <div class="form-group row">
-        <label for="intent_input_id">Identifier</label>
-        <input id="intent_input_id" type="text" class="form-control" placeholder="Enter identifier" autocomplete="off" [(ngModel)]="intent.intent"
-          name="intent" (blur)="formatIntent()" ngModel required>
-      </div>
-      <div class="form-group row">
         <label for="intent_input_text">Text</label>
         <input id="intent_input_text" type="text" class="form-control" placeholder="Enter the text" autocomplete="off" [(ngModel)]="intent.text"
           name="text" ngModel required>
+      </div>
+      <div class="form-group row">
+        <label for="intent_input_id">Identifier</label>
+        <input id="intent_input_id" type="text" class="form-control" placeholder="Enter identifier (min 3 characters)" autocomplete="off"
+          [(ngModel)]="intent.intent" name="intent" (blur)="formatIntent()" ngModel required>
       </div>
     </form>
   </div>

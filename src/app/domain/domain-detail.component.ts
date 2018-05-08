@@ -21,7 +21,7 @@ export class DomainDetailComponent implements OnInit {
     public intent: Intent;
     private index: number;
     private modal: NgbModalRef;
-    public intents: Array<IntentView>;
+    public intents = new Array<IntentView>();
 
     /**
      * Constructor
@@ -137,10 +137,13 @@ export class DomainDetailComponent implements OnInit {
         this.formatIntent();
         this.intent.text = this.intent.text.toLowerCase();
         const intentcp = Object.assign({}, this.intent);
+        const intentview = new IntentView([new IntentSectionView(this.intent.text, [])]);
         if (this.index === -1) {
             this.model.intents.push(intentcp);
+            this.intents.push(intentview);
         } else {
             this.model.intents[this.index] = intentcp;
+            this.intents[this.index] = intentview;
         }
         this.modal.close();
     }
