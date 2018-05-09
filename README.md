@@ -3,5 +3,5 @@
 
 # Caesar NLP Web
 
-This project is the UI [Caesar NLP](https://github.com/ItsMeCaesar/caesar-nlp).
+This project is the UI for the [Caesar NLP](https://github.com/ItsMeCaesar/caesar-nlp).
 
